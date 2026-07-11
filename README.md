@@ -58,10 +58,9 @@
     * [User Feedback Testing](#user-feedback-testing)
     * [Bugs and Fixes](#bugs-and-fixes)
 11. [Deployment](#deployment)
-11. [Deployment](#deployment)
 12. [Credits](#credits)
-13. [Reflections](#reflections)
-
+13. [Acknowledgements](#acknowledgements)
+14. [Reflections](#reflections)
     * [Development Reflection](#development-reflection)
     * [Planned Future Enhancements](#planned-future-enhancements)
 
@@ -651,6 +650,16 @@ Any externally sourced or adapted code will be clearly identified, commented in 
 <!-- Add full credits and links as external resources are used. -->
 
 [Back to top](#higher-or-lower)
+
+---
+
+
+## Acknowledgements
+
+<!-- TBC: Add acknowledgements for learning resources, academic or tutor support, user testers, community support and other assistance received during development. -->
+
+[Back to top](#higher-or-lower)
+
 
 ---
 
