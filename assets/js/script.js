@@ -1,6 +1,7 @@
-// Get references to the HTML elements that JavaScript will interact with
+// Get references to the HTML / DOM elements that JavaScript will interact with
 const drawCardButton = document.getElementById("draw-card");
 const cardContainer = document.getElementById("card-container");
+const reshuffleDeckButton = document.getElementById("reshuffle-deck");
 
 // Store the unique ID of the current deck so it can be reused for future API requests
 let deckId;
@@ -62,8 +63,30 @@ async function drawCard() {
     cardContainer.replaceChildren(cardImage);
 }
 
+/**
+ * Reshuffles the existing deck using its stored deck ID.
+ * This allows the same virtual deck to be reused rather than
+ * requesting a new deck and deck ID.
+ */
+async function reshuffleDeck() {
+    // Use the stored deckId to reshuffle the existing virtual deck
+    const response = await fetch(
+        `https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`
+    );
+
+    // Convert the JSON response into a JavaScript object
+    const data = await response.json();
+
+    // Display the returned reshuffle data in the console for API testing
+    console.log(data);
+}
+
+
 // Draw one card when the user clicks the Draw Card button
 drawCardButton.addEventListener("click", drawCard);
+
+// Reshuffle the existing deck when the user clicks the Reshuffle Deck button
+reshuffleDeckButton.addEventListener("click", reshuffleDeck);
 
 // Create a new shuffled deck when the page first loads
 getDeck();
