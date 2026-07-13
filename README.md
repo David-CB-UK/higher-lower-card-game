@@ -203,8 +203,22 @@ The final visual design will be developed after testing the playing-card images 
 
 A modern and retro-inspired visual theme may be implemented if development time allows.
 
+#### Research Sources
+
+The following websites and resources were reviewed during the initial research and planning stage. They were used to explore the history of Higher or Lower games, compare different gameplay approaches and consider common features and interface conventions. These resources were used for research and inspiration only and were not used as sources for the project's code.
+
+| Resource                                                                          | Type                     | Research Purpose                                                                                                                                                                                                                        |
+| --------------------------------------------------------------------------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Deck of Cards API](https://deckofcardsapi.com/)                                  | API / Technical Research | The external API discovered during initial project research that inspired the concept of developing a Higher or Lower card game. Reviewed to understand the available deck, shuffle, draw, card image and remaining-card functionality. |
+| [HighLowCardGame.com](https://highlowcardgame.com/)                               | Contemporary Game        | Reviewed as an example of a modern browser-based Higher or Lower game to understand common gameplay conventions and approaches to presenting a simple card game online.                                                                 |
+| [Card Station - High Low](https://www.cardstation.games/games/highlow)            | Contemporary Game        | Reviewed to compare modern gameplay and interface conventions, including the presentation of Higher and Lower controls, scores, streaks and remaining cards.                                                                            |
+| [UVL - Higher and Lower Group](https://www.uvlist.net/groups/info/higherandlower) | Historical Game Research | Used to explore historical games based on the Higher or Lower concept and understand how the game mechanic has appeared across older computer platforms.                                                                                |
+| [UVL - Play High Low](https://www.uvlist.net/game-154804-Play+High+Low)           | Historical Game Research | Reviewed as an example of an older computer game based on the Higher or Lower card-game                                                                                                                                                 |
+
+
 [Back to top](#higher-or-lower)
 
+---
 
 ### The Colour Scheme
 
@@ -646,11 +660,28 @@ The final application is planned to be deployed using GitHub Pages.
 
 ### API
 
-* **Deck of Cards API** - Planned external API used to provide virtual deck functionality, card data and playing-card images.
+| Resource              | Use in Project                                                                                      |
+| --------------------- | --------------------------------------------------------------------------------------------------- |
+| **Deck of Cards API** | Planned external API used to provide virtual deck functionality, card data and playing-card images. |
 
 ### Frameworks and Libraries
 
-* **Bootstrap** - Planned / TBC for responsive layout and selected interface components.
+| Resource      | Use in Project                                                         |
+| ------------- | ---------------------------------------------------------------------- |
+| **Bootstrap** | Planned / TBC for responsive layout and selected interface components. |
+
+### Research and Inspiration
+
+The following external resources were used during the research and planning stage to explore historical and contemporary implementations of Higher or Lower games. These resources were used for research and inspiration only and were not used as sources for the project's code.
+
+| Resource                                                                                               | Type                     | Research Purpose                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------ | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [HighLowCardGame.com](https://highlowcardgame.com/)                                                    | Contemporary Game        | Reviewed as an example of a modern browser-based Higher or Lower game to understand common gameplay conventions and approaches to presenting a simple card game online. |
+| [Card Station - High Low](https://www.cardstation.games/games/highlow)                                 | Contemporary Game        | Reviewed to compare modern gameplay and interface conventions, including the presentation of Higher and Lower controls, scores, streaks and remaining cards.            |
+| [UVL - Higher and Lower Group](https://www.uvlist.net/groups/info/higherandlower)                      | Historical Game Research | Used to explore historical games based on the Higher or Lower concept and understand how the game mechanic has appeared across older computer platforms.                |
+| [UVL - Play High Low](https://www.uvlist.net/game-154804-Play+High+Low)                                | Historical Game Research | Reviewed as an example of an older computer game based on the Higher or Lower card-game concept.                                                                        |
+| [My Abandonware - Play Your Cards Right](https://www.myabandonware.com/game/play-your-cards-right-5s1) | Historical Game Research | Used as the main source for researching the 1986 computer game *Play Your Cards Right* and its historical gameplay and presentation.                                    |
+
 
 ### Code
 
