@@ -21,7 +21,7 @@
    * [MoSCoW Prioritisation](#moscow-prioritisation)
 4. [Design](#design)
 
-   * [Design Inspiration](#design-inspiration)
+   * [Research and Inspiration](#research-and-inspiration)
    * [Colour Scheme](#the-colour-scheme)
    * [Typography](#typography)
    * [Accessibility](#accessibility)
@@ -181,11 +181,23 @@ The following features are outside the planned scope of the initial front-end ap
 
 ## Design
 
-### Design Inspiration
+### Research and Design Inspiration
 
-The initial design concept is inspired by the simplicity and focused gameplay of card and chance-based games associated with 1980s home computers, including systems such as the Amstrad and Amiga.
+The concept for this project developed while researching publicly available APIs that were suitable for the scope of an interactive front-end web application. During this research, I discovered the Deck of Cards API and identified the opportunity to use its deck, card and image functionality to create a Higher or Lower game.
 
-The project is not intended to recreate a specific existing game or produce a completely authentic 1980s interface. Instead, the inspiration may influence elements such as the focused single-screen gameplay, clear score display, bold controls and visual feedback.
+The initial inspiration for the gameplay and presentation comes partly from the simplicity and focused nature of card and chance-based games associated with 1980s home computers, including systems such as the ZX Spectrum, Amstrad CPC, Commodore 64 and Amiga.
+
+As part of the initial research, I examined a 1986 ZX Spectrum version of *Play Your Cards Right* by Britannia Software. The historical game used a more complex player-versus-computer format that included Higher and Lower predictions, the ability to change a starting card, a Freeze option and multiple games within a match.
+
+The historical implementation also explicitly handled equal-value cards as pairs for which the player did not receive a reward. This provided an interesting comparison with the independently planned handling of equal cards in this project. In the planned initial version, an equal card will be treated as a draw: it will not affect the player's score or streak, and another card will be drawn while retaining the player's original Higher or Lower prediction.
+
+Contemporary browser-based Higher or Lower games were also reviewed to understand common user expectations, gameplay conventions and interface approaches. Examples reviewed during the research stage include HighLowCardGame.com and Card Station's High Low game.
+
+These contemporary examples demonstrated common features such as clear Higher and Lower controls, score and streak tracking, immediately visible game information and simple single-page gameplay. They also demonstrated that implementations of the same basic game can make different design decisions. For example, approaches to equal-value cards, scoring and game progression can vary between games.
+
+This research is being used for comparison and inspiration rather than as a source for the project's code or as a design to reproduce. The final application will be independently developed using HTML, CSS and JavaScript and will use the Deck of Cards API as its external data source.
+
+The project is not intended to recreate a specific existing game or produce a completely authentic 1980s interface. Instead, the historical inspiration may influence elements such as focused single-screen gameplay, a clear score display, bold controls and immediate visual feedback.
 
 The final visual design will be developed after testing the playing-card images supplied by the Deck of Cards API. This will allow the interface, colour palette and surrounding visual elements to complement the external card assets rather than forcing them into a predetermined visual style.
 
@@ -193,7 +205,6 @@ A modern and retro-inspired visual theme may be implemented if development time 
 
 [Back to top](#higher-or-lower)
 
----
 
 ### The Colour Scheme
 
