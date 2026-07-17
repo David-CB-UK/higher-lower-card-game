@@ -47,8 +47,9 @@ async function drawCard() {
     // Store the first card from the returned cards array
     const card = data.cards[0];
 
-    // Display the individual card data in the console for testing
-    console.log(card);
+    // Display the individual card data and remaining card count for API testing
+    console.log("Card drawn:", card);
+    console.log("Cards remaining:", data.remaining);
 
     // Create an image element to display the card returned by the API
     const cardImage = document.createElement("img");
