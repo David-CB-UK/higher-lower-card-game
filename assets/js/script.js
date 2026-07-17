@@ -34,34 +34,52 @@ async function getDeck() {
  */
 async function drawCard() {
     /*
-     * Use a template literal to insert the current deckId
-     * dynamically into the API URL
+     * 'Try' to run the code below; If an error occurs 
+     * (such as no internet connection or the API being 
+     * unavailable), JavaScript will stop executing this block
+     * and move to the catch block instead of crashing the program.
      */
-    const response = await fetch(
-        `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
-    );
+    try {
+        /*
+         * Use a template literal to insert the current deckId
+         * dynamically into the API URL
+         */
+        const response = await fetch(
+            `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
+        );
 
-    // Convert the JSON response into a JavaScript object
-    const data = await response.json();
+        // Convert the JSON response into a JavaScript object
+        const data = await response.json();
 
-    // Store the first card from the returned cards array
-    const card = data.cards[0];
+        // Store the first card from the returned cards array
+        const card = data.cards[0];
 
-    // Display the individual card data and remaining card count for API testing
-    console.log("Card drawn:", card);
-    console.log("Cards remaining:", data.remaining);
+        // Display the individual card data and remaining card count for API testing
+        console.log("Card drawn:", card);
+        console.log("Cards remaining:", data.remaining);
 
-    // Create an image element to display the card returned by the API
-    const cardImage = document.createElement("img");
+        // Create an image element to display the card returned by the API
+        const cardImage = document.createElement("img");
 
-    // Use the card image URL returned by the API as the image source
-    cardImage.src = card.image;
+        // Use the card image URL returned by the API as the image source
+        cardImage.src = card.image;
 
-    // Create descriptive alternative text using the card value and suit
-    cardImage.alt = `${card.value} of ${card.suit}`;
+        // Create descriptive alternative text using the card value and suit
+        cardImage.alt = `${card.value} of ${card.suit}`;
 
-    // Replace the previously displayed card with the newly drawn card
-    cardContainer.replaceChildren(cardImage);
+        // Replace the previously displayed card with the newly drawn card
+        cardContainer.replaceChildren(cardImage);
+    }
+    
+    /*
+     * If an error occurs anywhere inside the try block,
+     * execution continues here. The error is written to the
+     * browser console to help with debugging during development.
+     */
+    catch (error) {
+        // Display the error details in the browser console
+        console.error(error);
+    }
 }
 
 /**

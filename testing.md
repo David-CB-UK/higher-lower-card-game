@@ -173,17 +173,29 @@ The Deck of Cards API reshuffle endpoint was tested to determine whether the exi
 Initial testing confirmed that the reshuffle request successfully returned:
 
 ```text
+Cards remaining before reshuffle: 47
+
+Reshuffle response:
+
 success: true
 deck_id: [same existing deck identifier]
 remaining: 52
 shuffled: true
 ```
 
+<details>
+<summary><strong>View reshuffle test evidence (Click to expand)</strong></summary>
+
+<br>
+
+![Console output confirming the existing deck was successfully reshuffled and the remaining card count reset to 52.](assets/images/readme-images/reshuffle-test.webp)
+
+</details>
+
+<br>
 The same `deck_id` was retained and the number of remaining cards returned to `52`.
 
-<!-- TBC: Confirm and document a successful card draw after reshuffling if this final test has not yet been completed. -->
-
-**Result:** Testing in progress
+**Result:** Pass
 
 This functionality is intended to allow the same virtual deck to be reset and reused for a new game without requesting a completely new deck and deck identifier.
 
