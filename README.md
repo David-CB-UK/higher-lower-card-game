@@ -634,7 +634,20 @@ Drawing...
 - This would repeat the animation until the API request has completed loading.
 The button would then restore the button text to **Draw Card** when the request succeeds or fails. This would provide clear feedback that the application is actively waiting for a response.
 
+[Back to top](#higher-or-lower)
 
+
+### Planned Improvement – Empty Deck Handling
+
+When all 52 cards have been drawn, the game should not display the generic API error message.
+
+Instead the game should:
+
+- Display the custom card back.
+- Display the message:
+  > 🃏 The deck is empty. Please reshuffle to continue.
+- Disable the **Draw Card** button until the deck has been reshuffled.
+- Re-enable the **Draw Card** button after a successful reshuffle.
 
 
 

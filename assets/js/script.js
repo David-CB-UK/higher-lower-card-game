@@ -62,17 +62,18 @@ async function drawCard() {
         
         // Create an image element to display the custom card's 'reverse' while loading
         const loadingCardImage = document.createElement("img");
+        
+        // Apply the playing card styling
+        loadingCardImage.classList.add("playing-card");
 
         // Use my custom reverse card image
         loadingCardImage.src = "assets/images/hi-low-card-reverse.webp";
         
         // Alternative text for screen readers
-        loadingCardImage.alt = "Card back";
+        loadingCardImage.alt = "Reverse of Card";
 
         // Replace the previously displayed card with the loading card
         cardContainer.replaceChildren(loadingCardImage);
-
-
 
         /*
          * Use a template literal to insert the current deckId
@@ -95,6 +96,9 @@ async function drawCard() {
         // Create an image element to display the card returned by the API
         const cardImage = document.createElement("img");
 
+        // Apply the playing card styling
+        cardImage.classList.add("playing-card");
+
         // Use the card image URL returned by the API as the image source
         cardImage.src = card.image;
 
@@ -111,9 +115,14 @@ async function drawCard() {
         drawCardButton.disabled = false;
         // return button to say draw card
         drawCardButton.textContent = "Draw Card";
+
+        // Re-enable the reshuffle button after an error
+        reshuffleDeckButton.disabled = false;
+
+        // Restore the original button text
+        reshuffleDeckButton.textContent = "Reshuffle Deck";
     }
     
-
 
     /*
      * If an error occurs anywhere inside the try block,
@@ -145,16 +154,60 @@ async function drawCard() {
  * requesting a new deck and deck ID.
  */
 async function reshuffleDeck() {
-    // Use the stored deckId to reshuffle the existing virtual deck
-    const response = await fetch(
-        `https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`
-    );
 
-    // Convert the JSON response into a JavaScript object
-    const data = await response.json();
+    try {
 
-    // Display the returned reshuffle data in the console for API testing
-    console.log(data);
+        // Disable the reshuffle button while the deck is being reshuffled
+        reshuffleDeckButton.disabled = true;
+
+        // Indicate to the player that the deck is currently being reshuffled
+        reshuffleDeckButton.textContent = "Shuffling...";
+
+        // Create an image element to display the custom card back while shuffling
+        const loadingCardImage = document.createElement("img");
+
+        // Use the custom card back image stored in the project
+        loadingCardImage.src = "assets/images/hi-low-card-reverse.webp";
+
+        // Provide descriptive alternative text for screen readers
+        loadingCardImage.alt = "Reverse of Card";
+
+        // Apply the playing card styling
+        loadingCardImage.classList.add("playing-card");
+
+        // Replace the previously displayed card with the loading card
+        cardContainer.replaceChildren(loadingCardImage);
+
+        // Use the stored deckId to reshuffle the existing virtual deck
+        const response = await fetch(
+            `https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`
+        );
+
+        // Convert the JSON response into a JavaScript object
+        const data = await response.json();
+
+        // Display the returned reshuffle data in the console for API testing
+        console.log(data);
+
+        // Clear any previous error message because the deck was reshuffled successfully.
+        errorMessage.textContent = "";
+
+        // Restore the reshuffle button once the deck has been reshuffled
+        reshuffleDeckButton.disabled = false;
+        reshuffleDeckButton.textContent = "Reshuffle Deck";
+    }
+
+    catch (error) {
+        // Display the error details in the browser console
+        console.error(error);
+
+        // Display a user-friendly error message on the page
+        errorMessage.textContent = "⚠️ Unable to reshuffle the deck. Please check your connection and try again.";
+        
+        // Re-enable the reshuffle button so the player can try again after an error.
+        reshuffleDeckButton.disabled = false;
+        reshuffleDeckButton.textContent = "Reshuffle Deck";
+    }
 }
 
 

@@ -255,6 +255,27 @@ A loading state will be introduced while awaiting API responses. This will provi
 
 ---
 
+### JavaScript Learning Point – Dynamically Created Elements
+
+While adding the `.playing-card` CSS class, I initially tried to add the class before the image element had been created.
+
+The incorrect approach:
+
+```javascript
+cardImage.classList.add("playing-card");
+const cardImage = document.createElement("img");
+```
+
+The corrected approach:
+
+```javascript
+const cardImage = document.createElement("img");
+cardImage.classList.add("playing-card");
+```
+
+This helped to re-enforce that JavaScript variables can only be used after they have been created. I also became confused when using `loadingCardImage` and `cardImage` forgetting these are two separate image elements, so each requires its own `.classList.add("playing-card")` statement.
+
+---
 ## Asynchronous Interaction Testing
 
 <!-- TBC: Test repeated or rapid user input, disabled controls during API requests, and the prevention of overlapping asynchronous actions. -->
