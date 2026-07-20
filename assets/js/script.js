@@ -3,6 +3,9 @@ const drawCardButton = document.getElementById("draw-card");
 const cardContainer = document.getElementById("card-container");
 const reshuffleDeckButton = document.getElementById("reshuffle-deck");
 
+// Get a reference to the element used to display error messages
+const errorMessage = document.getElementById("error-message");
+
 // Store the unique ID of the current deck so it can be reused for future API requests
 let deckId;
 
@@ -69,6 +72,9 @@ async function drawCard() {
 
         // Replace the previously displayed card with the newly drawn card
         cardContainer.replaceChildren(cardImage);
+
+        // Clear any previous error message because the card was drawn successfully.
+        errorMessage.textContent = "";
     }
     
     /*
@@ -79,6 +85,9 @@ async function drawCard() {
     catch (error) {
         // Display the error details in the browser console
         console.error(error);
+
+        // Display a user-friendly error message on the page
+        errorMessage.textContent = "⚠️ Unable to draw a card. Please check your connection and try again.";
     }
 }
 

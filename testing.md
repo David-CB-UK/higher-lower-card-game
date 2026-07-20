@@ -219,6 +219,24 @@ This identified the need for explicit API failure feedback and recovery.
 
 The retry action should safely retry the failed request where possible without unnecessarily losing the player's current game state.
 
+**Observation**
+During offline testing, it was observed that the browser could take several seconds before the Fetch API reported a failed network request. During this period the interface appeared unresponsive because there was no visual indication that the button click had been registered and highlighted an opportunity to improve the user experience.
+
+
+<details>
+<summary><strong>Draw one (pending) user experience issue (Click to expand)</strong></summary>
+
+<br>
+
+![Console output showing 'pending' in Dev tools and no message to user](assets/images/readme-images/draw-card-pending.webp)
+
+</details>
+<br>
+
+**Planned Improvement**
+A loading state will be introduced while awaiting API responses. This will provide immediate feedback by temporarily disabling the relevant controls and displaying an animated loading indicator using the project's custom card-back design.
+
+
 **Planned testing:**
 
 - Disconnect or disable the internet connection.
