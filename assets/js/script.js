@@ -1,3 +1,7 @@
+// ========================================
+// Initial Setup
+// ========================================
+
 // Get references to the HTML / DOM elements that JavaScript will interact with
 const drawCardButton = document.getElementById("draw-card");
 const cardContainer = document.getElementById("card-container");
@@ -30,6 +34,12 @@ async function getDeck() {
     // Display the returned deck data in the console for API testing
     console.log(data);
 }
+
+
+// ========================================
+// Draw Card Function
+// ========================================
+
 
 /**
  * Draws one card from the current deck using its unique deck ID.
@@ -124,6 +134,11 @@ async function drawCard() {
     }
 }
 
+
+// ========================================
+// Reshuffle Deck Function
+// ========================================
+
 /**
  * Reshuffles the existing deck using its stored deck ID.
  * This allows the same virtual deck to be reused rather than
@@ -142,6 +157,10 @@ async function reshuffleDeck() {
     console.log(data);
 }
 
+
+// ========================================
+// Event Listeners
+// ========================================
 
 // Draw one card when the user clicks the Draw Card button
 drawCardButton.addEventListener("click", drawCard);
