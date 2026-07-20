@@ -394,7 +394,11 @@ This table will be updated throughout the development process to reflect the tec
 | **GitHub**                | In Use        | Used to host the project repository remotely and provide a documented record of the development process through the project's commit history.                                                         |
 | **GitHub Pages**          | Planned       | Intended to deploy and host the final front-end web application.                                                                                                                                      |
 | **Visual Studio Code**    | In Use        | Used as the local development environment for creating and managing the project's files.                                                                                                              |
-| **ChatGPT** | In Use | Used as an AI-assisted learning and development aid to support project planning, explain technical concepts, discuss implementation approaches, assist with debugging, review code, and help structure and refine project documentation. Custom prompts and project-specific instructions were used to provide relevant context and maintain consistency with the project requirements and development approach. All suggestions and code used within the project are reviewed, understood, tested and adapted as part of the development process. |
+| **ChatGPT** | In Use | Used as an AI-assisted learning and development aid to support project planning, explain technical concepts, discuss implementation approaches, assist with debugging, review code, and help structure and refine project documentation. Custom prompts and project-specific instructions were used to provide relevant context and maintain consistency with the project requirements and development approach. All suggestions and code used within the project are reviewed, understood, tested and adapted as part of the development process. Was also used to create the back image for the custom card reverse.|
+| **[Image Robo](https://imagerobo.com/)** | In Use | Used to resize the custom card back image to match the Deck of Cards API card dimensions (226 pixels × 314 pixels). |
+| **[PhotoRoom](https://app.photoroom.com/)** | In Use | Used to remove the background and create transparent edges for the custom card back image. |
+
+
 
 [Back to top](#higher-or-lower)
 
@@ -598,6 +602,7 @@ Potential future development currently includes:
 * Additional player statistics.
 * Achievements.
 * More advanced card animations.
+* Animated Button Loading Feedback
 * User accounts.
 * Persistent player profiles.
 * Cross-device score and preference synchronisation.
@@ -605,5 +610,32 @@ Potential future development currently includes:
 * Multiplayer functionality.
 
 The initial project scope deliberately prioritises a fully functioning, robust and tested core Higher or Lower game. Features that cannot be completed and tested to an appropriate standard within the available development timeframe will be retained as future enhancements rather than being left partially implemented.
+
+
+#### Animated Loading Feedback
+
+Improve the loading feedback shown while waiting for the Deck of Cards API.
+
+Planned behaviour:
+
+- When the **Draw Card** button is disabled I would animate the button text (as sown below) to say :
+
+```
+Drawing
+Drawing.
+Drawing..
+Drawing...
+Drawing
+Drawing.
+Drawing..
+Drawing...
+```
+
+- This would repeat the animation until the API request has completed loading.
+The button would then restore the button text to **Draw Card** when the request succeeds or fails. This would provide clear feedback that the application is actively waiting for a response.
+
+
+
+
 
 [Back to top](#higher-or-lower)

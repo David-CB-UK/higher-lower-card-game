@@ -50,6 +50,20 @@ async function drawCard() {
         // Message to the player that a card is currently being requested / drawn
         drawCardButton.textContent = "Drawing...";
         
+        // Create an image element to display the custom card's 'reverse' while loading
+        const loadingCardImage = document.createElement("img");
+
+        // Use my custom reverse card image
+        loadingCardImage.src = "assets/images/hi-low-card-reverse.webp";
+        
+        // Alternative text for screen readers
+        loadingCardImage.alt = "Card back";
+
+        // Replace the previously displayed card with the loading card
+        cardContainer.replaceChildren(loadingCardImage);
+
+
+
         /*
          * Use a template literal to insert the current deckId
          * dynamically into the API URL
