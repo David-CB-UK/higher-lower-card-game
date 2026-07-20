@@ -43,6 +43,13 @@ async function drawCard() {
      * and move to the catch block instead of crashing the program.
      */
     try {
+        
+        // Prevent the player requesting another card while waiting for the API response
+        drawCardButton.disabled = true;
+
+        // Message to the player that a card is currently being requested / drawn
+        drawCardButton.textContent = "Drawing...";
+        
         /*
          * Use a template literal to insert the current deckId
          * dynamically into the API URL
@@ -75,8 +82,15 @@ async function drawCard() {
 
         // Clear any previous error message because the card was drawn successfully.
         errorMessage.textContent = "";
+
+        // Re-enable the Draw Card button now after the API request has completed successfully.
+        drawCardButton.disabled = false;
+        // return button to say draw card
+        drawCardButton.textContent = "Draw Card";
     }
     
+
+
     /*
      * If an error occurs anywhere inside the try block,
      * execution continues here. The error is written to the
@@ -88,6 +102,11 @@ async function drawCard() {
 
         // Display a user-friendly error message on the page
         errorMessage.textContent = "⚠️ Unable to draw a card. Please check your connection and try again.";
+    
+        // Re-enable the Draw Card button so the player can use button to try again after an error.
+        drawCardButton.disabled = false;
+        // return button to say draw card
+        drawCardButton.textContent = "Draw Card";
     }
 }
 
