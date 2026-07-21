@@ -7,6 +7,9 @@ const drawCardButton = document.getElementById("draw-card");
 const cardContainer = document.getElementById("card-container");
 const reshuffleDeckButton = document.getElementById("reshuffle-deck");
 
+// Get reference to display the number of cards remaining
+const cardsRemaining = document.getElementById("cards-remaining");
+
 // Get a reference to the element used to display error messages
 const errorMessage = document.getElementById("error-message");
 
@@ -92,6 +95,9 @@ async function drawCard() {
         // Display the individual card data and remaining card count for API testing
         console.log("Card drawn:", card);
         console.log("Cards remaining:", data.remaining);
+
+        // Update number of cards remaining in the current deck
+        cardsRemaining.textContent = `Cards Remaining: ${data.remaining}`;
 
         // Create an image element to display the card returned by the API
         const cardImage = document.createElement("img");
@@ -195,6 +201,9 @@ async function reshuffleDeck() {
         // Restore the reshuffle button once the deck has been reshuffled
         reshuffleDeckButton.disabled = false;
         reshuffleDeckButton.textContent = "Reshuffle Deck";
+
+        // Update the number of cards remaining after reshuffling the deck
+        cardsRemaining.textContent = `Cards Remaining: ${data.remaining}`;
     }
 
     catch (error) {

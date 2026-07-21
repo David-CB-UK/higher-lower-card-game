@@ -650,5 +650,8 @@ Instead the game should:
 - Re-enable the **Draw Card** button after a successful reshuffle.
 
 
+### Planned Improvement – Multiple Deck of cards
+
+The Deck of Cards API supports combining multiple standard decks into a single virtual deck. A future version of the game could allow players to choose the number of decks used before starting a game. This would increase game length and alter the probability of drawing higher or lower cards, providing an additional gameplay option without changing the core mechanics.
 
 [Back to top](#higher-or-lower)
