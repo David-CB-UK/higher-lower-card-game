@@ -98,6 +98,10 @@ async function drawCard() {
 
         // Update number of cards remaining in the current deck
         cardsRemaining.textContent = `Cards Remaining: ${data.remaining}`;
+        // Check whether the current deck has run out of cards
+        if (data.remaining === 0) {
+            setOutOfCardsState();
+        }
 
         // Create an image element to display the card returned by the API
         const cardImage = document.createElement("img");
@@ -117,10 +121,11 @@ async function drawCard() {
         // Clear any previous error message because the card was drawn successfully.
         errorMessage.textContent = "";
 
-        // Re-enable the Draw Card button now after the API request has completed successfully.
-        drawCardButton.disabled = false;
-        // return button to say draw card
-        drawCardButton.textContent = "Draw Card";
+        // Re-enable the Draw Card button if there are still cards remaining
+        if (data.remaining > 0) {
+            drawCardButton.disabled = false;
+            drawCardButton.textContent = "Draw Card";
+        }
 
         // Re-enable the reshuffle button after an error
         reshuffleDeckButton.disabled = false;
@@ -147,6 +152,26 @@ async function drawCard() {
         // return button to say draw card
         drawCardButton.textContent = "Draw Card";
     }
+}
+
+
+// ========================================
+// Out of Cards Function
+// ========================================
+
+
+//Updates the game when all cards have been drawn.
+function setOutOfCardsState() {
+
+    // Inform the player that the deck has been exhausted
+    errorMessage.textContent =
+        "🃏 You've reached the end of the deck. Please reshuffle the deck to continue.";
+
+    // Prevent any further cards being drawn
+    drawCardButton.disabled = true;
+
+    // Update the button text to reflect the current game state
+    drawCardButton.textContent = "Out of Cards";
 }
 
 
@@ -204,6 +229,15 @@ async function reshuffleDeck() {
 
         // Update the number of cards remaining after reshuffling the deck
         cardsRemaining.textContent = `Cards Remaining: ${data.remaining}`;
+        
+        // Clear 'out of cards' message
+        errorMessage.textContent = "";
+
+        // Re-enable the Draw Card button
+        drawCardButton.disabled = false;
+
+        // Restore Draw Card button text
+        drawCardButton.textContent = "Draw Card";
     }
 
     catch (error) {

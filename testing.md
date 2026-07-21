@@ -255,7 +255,7 @@ A loading state will be introduced while awaiting API responses. This will provi
 
 ---
 
-### JavaScript Learning Point – Dynamically Created Elements
+### JavaScript Learning Point 1
 
 While adding the `.playing-card` CSS class, I initially tried to add the class before the image element had been created.
 
@@ -335,6 +335,8 @@ Bugs and issues identified during development are documented below. This include
 | Card data returned successfully but no card appeared on the page | The API response was logged to the console, but no image element had been created or added to the DOM. | Created an `<img>` element, assigned `card.image` to its `src`, added descriptive `alt` text and inserted it into `cardContainer` using `replaceChildren()`. | Fixed |
 | Remaining card count was no longer visible during testing | Console output had been changed from the complete API response object to only the individual `card` object. The `remaining` property belongs to the overall API response. | Added separate console output for `data.remaining` while retaining the individual card-data output. | Fixed |
 | Draw button appeared to do nothing when the internet connection was lost | The API request could not complete successfully, but no user-facing error handling had yet been implemented. | Error handling and retry functionality are planned so the user receives clear feedback and can retry the failed action. | Open / Planned |
+| Application crashed when attempting to draw beyond the final card | The code assumed the Deck of Cards API would always return a card. After the final card had been drawn, a further draw request returned an empty `cards` array, causing `data.cards[0]` to be `undefined`. The application then attempted to access `card.image`, resulting in a `TypeError`. | The issue was identified during testing The game logic will detect when no card has been returned and transition to the dedicated 'Out of Cards' state instead of attempting to display a non-existent card. This prevents the application from crashing and provides clear feedback to the player. | In Progress |
+
 
 [Back to top](#higher-or-lower---testing)
 
