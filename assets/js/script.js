@@ -4,8 +4,13 @@
 
 // Get references to the HTML / DOM elements that JavaScript will interact with
 const drawCardButton = document.getElementById("draw-card");
-const cardContainer = document.getElementById("card-container");
 const reshuffleDeckButton = document.getElementById("reshuffle-deck");
+
+// Get a reference to the container that displays the current card
+const currentCardContainer = document.getElementById("current-card-container");
+
+// Get a reference to the container that displays the next card
+const nextCardContainer = document.getElementById("next-card-container");
 
 // Get reference to display the number of cards remaining
 const cardsRemaining = document.getElementById("cards-remaining");
@@ -76,7 +81,7 @@ async function drawCard() {
         loadingCardImage.alt = "Reverse of Card";
 
         // Replace the previously displayed card with the loading card
-        cardContainer.replaceChildren(loadingCardImage);
+        currentCardContainer.replaceChildren(loadingCardImage);
 
         /*
          * Use a template literal to insert the current deckId
@@ -116,7 +121,7 @@ async function drawCard() {
         cardImage.alt = `${card.value} of ${card.suit}`;
 
         // Replace the previously displayed card with the newly drawn card
-        cardContainer.replaceChildren(cardImage);
+        currentCardContainer.replaceChildren(cardImage);
 
         // Clear any previous error message because the card was drawn successfully.
         errorMessage.textContent = "";
@@ -207,7 +212,7 @@ async function reshuffleDeck() {
         loadingCardImage.classList.add("playing-card");
 
         // Replace the previously displayed card with the loading card
-        cardContainer.replaceChildren(loadingCardImage);
+        currentCardContainer.replaceChildren(loadingCardImage);
 
         // Use the stored deckId to reshuffle the existing virtual deck
         const response = await fetch(
