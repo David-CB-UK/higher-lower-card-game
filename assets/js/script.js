@@ -25,6 +25,14 @@ const errorMessage = document.getElementById("error-message");
 // Store the unique ID of the current deck so it can be reused for future API requests
 let deckId;
 
+// Store the current face-up card - This card remains available so it can be compared with the next card.
+let currentCard;
+
+// Store the next card drawn after the player makes a guess - This card will be the one  compared against the current card.
+let nextCard;
+
+
+
 /**
  * Creates and shuffles a new deck using the Deck of Cards API.
  * The returned deck ID is stored so the same deck can be used
@@ -98,11 +106,11 @@ async function drawCard() {
         // Convert the JSON response into a JavaScript object
         const data = await response.json();
 
-        // Store the first card from the returned cards array
-        const card = data.cards[0];
+        // Store the first card from the returned cards array as the current face-up card
+        currentCard = data.cards[0];
 
         // Display the individual card data and remaining card count for API testing
-        console.log("Card drawn:", card);
+        console.log("Card drawn:", currentCard);
         console.log("Cards remaining:", data.remaining);
 
         // Update number of cards remaining in the current deck
@@ -119,10 +127,10 @@ async function drawCard() {
         cardImage.classList.add("playing-card");
 
         // Use the card image URL returned by the API as the image source
-        cardImage.src = card.image;
+        cardImage.src = currentCard.image;
 
         // Create descriptive alternative text using the card value and suit
-        cardImage.alt = `${card.value} of ${card.suit}`;
+       cardImage.alt = `${currentCard.value} of ${currentCard.suit}`;
 
         // Replace the previously displayed card with the newly drawn card
         currentCardContainer.replaceChildren(cardImage);
@@ -272,6 +280,25 @@ async function reshuffleDeck() {
         // Replace the previously displayed card with the loading card
         currentCardContainer.replaceChildren(loadingCardImage);
 
+        // Create an image element to reset the Next Card area
+        const nextLoadingCardImage = document.createElement("img");
+
+        // Apply the playing card styling
+        nextLoadingCardImage.classList.add("playing-card");
+
+        // Use the custom card back image stored in the project
+        nextLoadingCardImage.src = "assets/images/hi-low-card-reverse.webp";
+
+        // Provide descriptive alternative text for screen readers
+        nextLoadingCardImage.alt = "Reverse of Card";
+
+        // Replace the previously displayed Next Card with the card back
+        nextCardContainer.replaceChildren(nextLoadingCardImage);
+
+        // Clear the stored cards ready for a new game
+        currentCard = null;
+        nextCard = null;
+
         // Use the stored deckId to reshuffle the existing virtual deck
         const response = await fetch(
             `https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`
@@ -282,9 +309,6 @@ async function reshuffleDeck() {
 
         // Display the returned reshuffle data in the console for API testing
         console.log(data);
-
-        // Clear any previous error message because the deck was reshuffled successfully.
-        errorMessage.textContent = "";
 
         // Restore the reshuffle button once the deck has been reshuffled
         reshuffleDeckButton.disabled = false;

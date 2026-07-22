@@ -255,11 +255,11 @@ A loading state will be introduced while awaiting API responses. This will provi
 
 ---
 
-### JavaScript Learning Point 1
+### JavaScript code structure issue
 
 While adding the `.playing-card` CSS class, I initially tried to add the class before the image element had been created.
 
-The incorrect approach:
+The original incorrect approach:
 
 ```javascript
 cardImage.classList.add("playing-card");
@@ -276,6 +276,32 @@ cardImage.classList.add("playing-card");
 This helped to re-enforce that JavaScript variables can only be used after they have been created. I also became confused when using `loadingCardImage` and `cardImage` forgetting these are two separate image elements, so each requires its own `.classList.add("playing-card")` statement.
 
 ---
+
+### Next Card Not Reset After Reshuffling
+
+| Test | Result |
+| --- | --- |
+| Reshuffle the deck after drawing one or more cards. | ⚠️ Failed |
+
+**Expected Result**
+
+Both the **Current Card** and **Next Card** areas should display the custom card back after the deck has been reshuffled, indicating that a new game is ready to begin.
+
+**Actual Result**
+
+The **Current Card** area resets correctly, but the **Next Card** area continues to display the previously drawn card until another guess is made.
+
+**Resolution**
+
+The `reshuffleDeck()` function was updated to reset both card containers to the custom card back image whenever the deck is reshuffled.
+
+**Status:** ✅ Fixed
+
+----
+
+
+
+
 ## Asynchronous Interaction Testing
 
 <!-- TBC: Test repeated or rapid user input, disabled controls during API requests, and the prevention of overlapping asynchronous actions. -->
