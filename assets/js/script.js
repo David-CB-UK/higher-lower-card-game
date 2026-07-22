@@ -173,6 +173,52 @@ async function drawCard() {
 
 
 // ========================================
+// Higher / Lower Guess Function
+// ========================================
+
+/**
+ * Draws the next card after the player has chosen
+ * Higher or Lower and displays it in the Next Card area.
+ */
+async function makeGuess() {
+
+    // Console msg to confirm the function has been called
+    console.log("Guess button clicked");
+
+    // Request one card from the current deck
+    const response = await fetch(
+        `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
+    );
+
+    // Convert the JSON response into a JavaScript object
+    const data = await response.json();
+
+    // Store the first card from the api cards array
+    const card = data.cards[0];
+
+    // Create an image element to display the card returned by the API
+    const cardImage = document.createElement("img");
+
+    // Apply the playing card styling
+    cardImage.classList.add("playing-card");
+
+    // Use the card image returned by the API
+    cardImage.src = card.image;
+
+    // Create descriptive alternative text
+    cardImage.alt = `${card.value} of ${card.suit}`;
+
+    // Display the next card
+    nextCardContainer.replaceChildren(cardImage);
+
+    // Display the returned data in the browser console for testing
+    console.log(data);
+}
+
+
+
+
+// ========================================
 // Out of Cards Function
 // ========================================
 
@@ -277,6 +323,12 @@ async function reshuffleDeck() {
 
 // Draw one card when the user clicks the Draw Card button
 drawCardButton.addEventListener("click", drawCard);
+
+// Draw the next card when the player chooses Higher
+higherButton.addEventListener("click", makeGuess);
+// Draw the next card when the player chooses Lower
+lowerButton.addEventListener("click", makeGuess);
+
 
 // Reshuffle the existing deck when the user clicks the Reshuffle Deck button
 reshuffleDeckButton.addEventListener("click", reshuffleDeck);
