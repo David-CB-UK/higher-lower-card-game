@@ -270,7 +270,7 @@ The planned core gameplay will:
 7. Increase the score and streak following a correct prediction.
 8. End the game following an incorrect prediction.
 
-If an equal-value card is drawn, it will be treated as a draw. The player's score and streak will not be affected, the player will be informed, and another card will be drawn while retaining the original Higher or Lower prediction.
+If an equal-value card is drawn, it will be treated as a draw. The player's score and streak will not be affected, the player will be informed, and the player can take another turn.
 
 This approach prevents the player from losing due to an outcome they were not able to select.
 

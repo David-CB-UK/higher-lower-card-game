@@ -12,6 +12,10 @@ const currentCardContainer = document.getElementById("current-card-container");
 // Get a reference to the container that displays the next card
 const nextCardContainer = document.getElementById("next-card-container");
 
+// Get references to the card images
+const currentCardImage = document.getElementById("current-card-image");
+const nextCardImage = document.getElementById("next-card-image");
+
 // Get references to the Higher / Lower buttons
 const higherButton = document.getElementById("higher-button");
 const lowerButton = document.getElementById("lower-button");
@@ -80,20 +84,8 @@ async function drawCard() {
         // Message to the player that a card is currently being requested / drawn
         drawCardButton.textContent = "Drawing...";
         
-        // Create an image element to display the custom card's 'reverse' while loading
-        const loadingCardImage = document.createElement("img");
-        
-        // Apply the playing card styling
-        loadingCardImage.classList.add("playing-card");
-
-        // Use my custom reverse card image
-        loadingCardImage.src = "assets/images/hi-low-card-reverse.webp";
-        
-        // Alternative text for screen readers
-        loadingCardImage.alt = "Reverse of Card";
-
-        // Replace the previously displayed card with the loading card
-        currentCardContainer.replaceChildren(loadingCardImage);
+        // Display the custom card back while the first card is being requested        currentCardImage.src = "assets/images/hi-low-card-reverse.webp";
+        currentCardImage.alt = "Reverse of Card";
 
         /*
          * Use a template literal to insert the current deckId
@@ -120,20 +112,9 @@ async function drawCard() {
             setOutOfCardsState();
         }
 
-        // Create an image element to display the card returned by the API
-        const cardImage = document.createElement("img");
-
-        // Apply the playing card styling
-        cardImage.classList.add("playing-card");
-
-        // Use the card image URL returned by the API as the image source
-        cardImage.src = currentCard.image;
-
-        // Create descriptive alternative text using the card value and suit
-       cardImage.alt = `${currentCard.value} of ${currentCard.suit}`;
-
-        // Replace the previously displayed card with the newly drawn card
-        currentCardContainer.replaceChildren(cardImage);
+        // Display the card returned by the API
+        currentCardImage.src = currentCard.image;
+        currentCardImage.alt = `${currentCard.value} of ${currentCard.suit}`;
 
         // Enable the Higher & Lower buttons ready for the player's first guess
         higherButton.disabled = false;
@@ -204,20 +185,9 @@ async function makeGuess(playerGuess) {
     // Store the first card from the returned cards array as the next face-up card
     nextCard = data.cards[0];
 
-    // Create an image element to display the card returned by the API
-    const cardImage = document.createElement("img");
-
-    // Apply the playing card styling
-    cardImage.classList.add("playing-card");
-
-    // Use the card image returned by the API
-    cardImage.src = nextCard.image;
-
-    // Create descriptive alternative text
-    cardImage.alt = `${nextCard.value} of ${nextCard.suit}`;
-
     // Display the next card
-    nextCardContainer.replaceChildren(cardImage);
+    nextCardImage.src = nextCard.image;
+    nextCardImage.alt = `${nextCard.value} of ${nextCard.suit}`;
 
     // Display the returned data in the browser console for testing
     console.log(data);
@@ -227,6 +197,8 @@ async function makeGuess(playerGuess) {
 
     // Display the returned result for testing
     console.log("Returned result:", result);
+    
+    updateGameState(result);
 }
 
 
@@ -307,7 +279,26 @@ function compareCards(playerGuess) {
 // Update Game State Function
 // ========================================
 
+/**
+ * Updates the game after the current and next cards
+ * have been compared.
+ */
+function updateGameState(result) {
 
+    console.log("Updating game state:", result);
+
+    // Move the next card so it becomes the current card
+    currentCard = nextCard;
+
+    // Display the new current card
+    currentCardImage.src = currentCard.image;
+    currentCardImage.alt = `${currentCard.value} of ${currentCard.suit}`;
+
+    // Reset the next card area to display the card back
+    nextCardImage.src = "assets/images/hi-low-card-reverse.webp";
+    nextCardImage.alt = "Reverse of Card";
+
+}
 
 
 
@@ -350,35 +341,13 @@ async function reshuffleDeck() {
         // Indicate to the player that the deck is currently being reshuffled
         reshuffleDeckButton.textContent = "Shuffling...";
 
-        // Create an image element to display the custom card back while shuffling
-        const loadingCardImage = document.createElement("img");
+        // Display the custom card back while reshuffling
+        currentCardImage.src = "assets/images/hi-low-card-reverse.webp";
+        currentCardImage.alt = "Reverse of Card";
 
-        // Use the custom card back image stored in the project
-        loadingCardImage.src = "assets/images/hi-low-card-reverse.webp";
-
-        // Provide descriptive alternative text for screen readers
-        loadingCardImage.alt = "Reverse of Card";
-
-        // Apply the playing card styling
-        loadingCardImage.classList.add("playing-card");
-
-        // Replace the previously displayed card with the loading card
-        currentCardContainer.replaceChildren(loadingCardImage);
-
-        // Create an image element to reset the Next Card area
-        const nextLoadingCardImage = document.createElement("img");
-
-        // Apply the playing card styling
-        nextLoadingCardImage.classList.add("playing-card");
-
-        // Use the custom card back image stored in the project
-        nextLoadingCardImage.src = "assets/images/hi-low-card-reverse.webp";
-
-        // Provide descriptive alternative text for screen readers
-        nextLoadingCardImage.alt = "Reverse of Card";
-
-        // Replace the previously displayed Next Card with the card back
-        nextCardContainer.replaceChildren(nextLoadingCardImage);
+        // Reset the Next Card area
+        nextCardImage.src = "assets/images/hi-low-card-reverse.webp";
+        nextCardImage.alt = "Reverse of Card";
 
         // Clear the stored cards ready for a new game
         currentCard = null;
