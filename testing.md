@@ -299,8 +299,35 @@ The `reshuffleDeck()` function was updated to reset both card containers to the 
 
 ----
 
+#### Card Comparison Logic
 
+The `compareCards()` function was manually tested using the browser's Developer Tools console to verify that the game correctly compares the player's selected guess against the value of the next card drawn from the Deck of Cards API.
 
+The following functionality was successfully tested:
+
+- The player's selected guess (`higher` or `lower`) was correctly passed to the `compareCards()` function.
+- The current and next card values were correctly converted to numerical values using the `getCardValue()` function.
+- The comparison logic correctly identified `correct`, `incorrect`, and `equal` outcomes.
+- The comparison result was successfully returned to the `makeGuess()` function for future game state handling.
+
+**Expected Result:**
+
+The browser console displays the player's guess, the numerical values of both cards, and the correct comparison result.
+
+**Actual Result:**
+
+The console output matched the expected results, confirming that the comparison logic is functioning correctly.
+
+<details>
+<summary><strong>View 'card comparison' console output (Click to expand)</strong></summary>
+
+<br>
+
+![Console output showing successful card comparison testing](assets/images/readme-images/cards-comparison-console-log.png)
+
+</details>
+
+---
 
 ## Asynchronous Interaction Testing
 
