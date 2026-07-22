@@ -188,7 +188,7 @@ async function drawCard() {
  * Draws the next card after the player has chosen
  * Higher or Lower and displays it in the Next Card area.
  */
-async function makeGuess() {
+async function makeGuess(playerGuess) {
 
     // Console msg to confirm the function has been called
     console.log("Guess button clicked");
@@ -201,8 +201,8 @@ async function makeGuess() {
     // Convert the JSON response into a JavaScript object
     const data = await response.json();
 
-    // Store the first card from the api cards array
-    const card = data.cards[0];
+    // Store the first card from the returned cards array as the next face-up card
+    nextCard = data.cards[0];
 
     // Create an image element to display the card returned by the API
     const cardImage = document.createElement("img");
@@ -211,17 +211,99 @@ async function makeGuess() {
     cardImage.classList.add("playing-card");
 
     // Use the card image returned by the API
-    cardImage.src = card.image;
+    cardImage.src = nextCard.image;
 
     // Create descriptive alternative text
-    cardImage.alt = `${card.value} of ${card.suit}`;
+    cardImage.alt = `${nextCard.value} of ${nextCard.suit}`;
 
     // Display the next card
     nextCardContainer.replaceChildren(cardImage);
 
     // Display the returned data in the browser console for testing
     console.log(data);
+
+    // Compare the current and next cards
+    compareCards(playerGuess);
 }
+
+
+
+// ========================================
+// Compare Cards Function
+// ========================================
+
+/**
+ * Converts the value returned by the Deck of Cards API
+ * into a number so that two cards can be compared.
+ */
+function getCardValue(card) {
+
+    switch (card.value) {
+
+        case "ACE":
+            return 1;
+
+        case "KING":
+            return 13;
+
+        case "QUEEN":
+            return 12;
+
+        case "JACK":
+            return 11;
+
+        default:
+            return Number(card.value);
+    }
+
+}
+
+/**
+ * Compares the current card with the next card.
+ * The comparison result will be used to determine
+ * whether the player's guess is correct.
+ */
+function compareCards(playerGuess) {
+
+    const currentValue = getCardValue(currentCard);
+    const nextValue = getCardValue(nextCard);
+
+    let result;
+
+    if (nextValue === currentValue) {
+        // Equal card
+        // Ignore it and draw another card
+        result = "equal";
+        console.log("= Equal cards! No win or loss. Please guess again.");
+    
+    } else if (playerGuess === "higher") {
+        if (nextValue > currentValue) {
+            result = "correct";
+        } else {
+        result = "incorrect";
+    }
+
+    } else {
+        if (nextValue < currentValue) {
+            result = "correct";
+        } else {
+            result = "incorrect";
+        }
+    }
+
+    console.log("Player guessed:", playerGuess);
+    console.log("Current value:", currentValue);
+    console.log("Next value:", nextValue);
+    console.log("Result:", result);
+
+    return result;
+}
+
+
+// ========================================
+// Update Game State Function
+// ========================================
+
 
 
 
@@ -349,10 +431,14 @@ async function reshuffleDeck() {
 drawCardButton.addEventListener("click", drawCard);
 
 // Draw the next card when the player chooses Higher
-higherButton.addEventListener("click", makeGuess);
-// Draw the next card when the player chooses Lower
-lowerButton.addEventListener("click", makeGuess);
+higherButton.addEventListener("click", () => {
+    makeGuess("higher");
+});
 
+// Draw the next card when the player chooses Lower
+lowerButton.addEventListener("click", () => {
+    makeGuess("lower");
+});
 
 // Reshuffle the existing deck when the user clicks the Reshuffle Deck button
 reshuffleDeckButton.addEventListener("click", reshuffleDeck);

@@ -584,11 +584,26 @@ Any externally sourced or adapted code will be clearly identified, commented in 
 
 ## Reflections
 
+
+### Development Decisions 
+
+The project uses traditional anonymous functions for some event listeners instead of arrow functions. Although arrow functions are common in modern JavaScript, I found the traditional syntax more readable while learning. It also made it clearer to me that I was defining a function to be executed when the event occurs, rather than calling the function immediately. An example of this was with the Hight and lower guess buttons:
+
+```
+higherButton.addEventListener("click", function () {
+    makeGuess("higher");
+});
+```
+
 ### Development Reflection
 
 <!-- TBC: Complete towards the end of the project, reflecting on the planning process, development decisions, challenges, changes in scope, testing, learning and the final outcome. -->
 
 [Back to top](#higher-or-lower)
+
+
+
+
 
 ---
 
