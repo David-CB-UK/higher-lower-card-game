@@ -664,6 +664,63 @@ Instead the game should:
 - Disable the **Draw Card** button until the deck has been reshuffled.
 - Re-enable the **Draw Card** button after a successful reshuffle.
 
+---
+
+### Planned Difficulty Modes
+
+The game has been designed with support for multiple difficulty modes as a future enhancement. This approach allows the core game logic to remain largely unchanged while providing different gameplay experiences.
+
+#### Easy Mode
+- The game continues after an incorrect guess.
+- The player's **current score** resets to **0** after an incorrect guess.
+- The player's **best score** is retained throughout the session.
+- Play continues until all cards in the deck have been drawn.
+
+#### Hard Mode
+- A single incorrect guess immediately ends the game.
+- The player's final score is displayed.
+- The player must reshuffle or start a new game before playing again.
+
+The game logic has been structured so that these modes can be implemented with minimal changes by altering the behaviour after an incorrect guess rather than rewriting the game's core functionality.
+
+For example with the increase or reset the player's score.
+
+<details>
+<summary><strong>Easy Mode Score Logic (click to expand)</strong></summary>
+
+```javascript
+// Increase or reset the player's score
+if (result === "correct") {
+    currentScore++;
+    if (currentScore > bestScore) {
+        bestScore = currentScore;
+    }
+} else if (result === "incorrect") {
+    currentScore = 0;
+}
+
+// Update the displayed scores
+updateScoreDisplay();
+```
+
+</details>
+
+<details>
+<summary><strong>Future Hard Mode Logic (click to expand)</strong></summary>
+
+```javascript
+if (result === "incorrect") {
+    if (difficulty === "easy") {
+        currentScore = 0;
+    } else {
+        endGame();
+    }
+}
+```
+
+</details>
+
+---
 
 ### Planned Improvement – Multiple Deck of cards
 

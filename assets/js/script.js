@@ -1,16 +1,10 @@
 // ========================================
-// Initial Setup
+// Initial DOM Setup
 // ========================================
 
 // Get references to the HTML / DOM elements that JavaScript will interact with
 const drawCardButton = document.getElementById("draw-card");
 const reshuffleDeckButton = document.getElementById("reshuffle-deck");
-
-// Get a reference to the container that displays the current card
-const currentCardContainer = document.getElementById("current-card-container");
-
-// Get a reference to the container that displays the next card
-const nextCardContainer = document.getElementById("next-card-container");
 
 // Get references to the card images
 const currentCardImage = document.getElementById("current-card-image");
@@ -23,8 +17,17 @@ const lowerButton = document.getElementById("lower-button");
 // Get reference to display the number of cards remaining
 const cardsRemaining = document.getElementById("cards-remaining");
 
+// Get references to the score displays
+const currentScoreDisplay = document.getElementById("current-score");
+const bestScoreDisplay = document.getElementById("best-score");
+
 // Get a reference to the element used to display error messages
 const errorMessage = document.getElementById("error-message");
+
+// ========================================
+// Game State Variables
+// ========================================
+
 
 // Store the unique ID of the current deck so it can be reused for future API requests
 let deckId;
@@ -34,6 +37,12 @@ let currentCard;
 
 // Store the next card drawn after the player makes a guess - This card will be the one  compared against the current card.
 let nextCard;
+
+// Store player's current score
+let currentScore = 0;
+
+// Store player's best score
+let bestScore = 0;
 
 
 
@@ -84,7 +93,8 @@ async function drawCard() {
         // Message to the player that a card is currently being requested / drawn
         drawCardButton.textContent = "Drawing...";
         
-        // Display the custom card back while the first card is being requested        currentCardImage.src = "assets/images/hi-low-card-reverse.webp";
+        // Display the custom card back while the first card is being requested
+        currentCardImage.src = "assets/images/hi-low-card-reverse.webp";
         currentCardImage.alt = "Reverse of Card";
 
         /*
@@ -287,6 +297,19 @@ function updateGameState(result) {
 
     console.log("Updating game state:", result);
 
+    // Increase or reset the player's score
+    if (result === "correct") {
+        currentScore++;
+        if (currentScore > bestScore) {
+            bestScore = currentScore;
+        }
+    } else if (result === "incorrect") {
+        currentScore = 0;
+    }
+
+    // Update the displayed scores
+    updateScoreDisplay();
+
     // Move the next card so it becomes the current card
     currentCard = nextCard;
 
@@ -300,6 +323,20 @@ function updateGameState(result) {
 
 }
 
+
+// ========================================
+// Score Display Function
+// ========================================
+
+/**
+ * Updates the score displayed to the player.
+ */
+function updateScoreDisplay() {
+
+    currentScoreDisplay.textContent = `Score: ${currentScore}`;
+    bestScoreDisplay.textContent = `Best Score: ${bestScore}`;
+
+}
 
 
 // ========================================
@@ -417,3 +454,6 @@ reshuffleDeckButton.addEventListener("click", reshuffleDeck);
 
 // Create a new shuffled deck when the page first loads
 getDeck();
+
+// Display the initial scores when the page loads
+updateScoreDisplay();
