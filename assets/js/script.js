@@ -223,7 +223,10 @@ async function makeGuess(playerGuess) {
     console.log(data);
 
     // Compare the current and next cards
-    compareCards(playerGuess);
+    const result = compareCards(playerGuess);
+
+    // Display the returned result for testing
+    console.log("Returned result:", result);
 }
 
 
