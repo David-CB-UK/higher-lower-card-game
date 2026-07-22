@@ -12,6 +12,10 @@ const currentCardContainer = document.getElementById("current-card-container");
 // Get a reference to the container that displays the next card
 const nextCardContainer = document.getElementById("next-card-container");
 
+// Get references to the Higher / Lower buttons
+const higherButton = document.getElementById("higher-button");
+const lowerButton = document.getElementById("lower-button");
+
 // Get reference to display the number of cards remaining
 const cardsRemaining = document.getElementById("cards-remaining");
 
@@ -123,14 +127,22 @@ async function drawCard() {
         // Replace the previously displayed card with the newly drawn card
         currentCardContainer.replaceChildren(cardImage);
 
+        // Enable the Higher & Lower buttons ready for the player's first guess
+        higherButton.disabled = false;
+        lowerButton.disabled = false;
+
+        // Disable the Draw Card button because the game has now started
+        drawCardButton.disabled = true;
+        drawCardButton.textContent = "Game Started";
+
         // Clear any previous error message because the card was drawn successfully.
         errorMessage.textContent = "";
 
         // Re-enable the Draw Card button if there are still cards remaining
-        if (data.remaining > 0) {
-            drawCardButton.disabled = false;
-            drawCardButton.textContent = "Draw Card";
-        }
+        //if (data.remaining > 0) {
+        //    drawCardButton.disabled = false;
+        //    drawCardButton.textContent = "Draw Card";
+        //}
 
         // Re-enable the reshuffle button after an error
         reshuffleDeckButton.disabled = false;
