@@ -112,10 +112,11 @@ async function drawCard() {
         currentCard = data.cards[0];
 
         // Display the individual card data and remaining card count for API testing
-        await flipCard(currentCardImage);
-
-        currentCardImage.src = currentCard.image;
-        currentCardImage.alt = `${currentCard.value} of ${currentCard.suit}`;
+        await flipCard(
+            currentCardImage,
+            currentCard.image,
+            `${currentCard.value} of ${currentCard.suit}`
+        );
 
         // Reset the number of cards remaining after reshuffling the deck
         cardsRemaining.textContent = data.remaining;
@@ -183,17 +184,29 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
- // Plays the flip animation on a card image.
-async function flipCard(cardElement) {
+/**
+ * Flips a card and swaps the image halfway through.
+ */
+async function flipCard(cardElement, imageSrc, imageAlt) {
 
-    cardElement.classList.add("card-flip");
+    // Flip the card away from the player
+    cardElement.classList.add("card-flip-out");
+    await delay(300);
 
-    await delay(600);
+    // Remove the first animation
+    cardElement.classList.remove("card-flip-out");
 
-    cardElement.classList.remove("card-flip");
+    // Change the card while edge-on
+    cardElement.src = imageSrc;
+    cardElement.alt = imageAlt;
+
+    // Flip the new card back towards the player
+    cardElement.classList.add("card-flip-in");
+    await delay(300);
+
+    // Clean up
+    cardElement.classList.remove("card-flip-in");
 }
-
-
 
 
 // ========================================

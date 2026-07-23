@@ -124,30 +124,39 @@ footer {
 
 /* --- Animations --- */
 
-/* --- Card Flip Animation --- */
+/* --- Card Flip Animations --- */
 
 .playing-card {
-    transition: transform 0.4s ease;
+    backface-visibility: hidden;
     transform-style: preserve-3d;
 }
 
-.card-flip {
-    animation: cardFlip 0.6s ease-in-out;
+.card-flip-out {
+    animation: flipOut 0.3s ease-in forwards;
 }
 
-@keyframes cardFlip {
+.card-flip-in {
+    animation: flipIn 0.3s ease-out forwards;
+}
 
-    0% {
+@keyframes flipOut {
+    from {
         transform: rotateY(0deg);
     }
-
-    50% {
+    to {
         transform: rotateY(90deg);
     }
 
-    100% {
+}
+
+@keyframes flipIn {
+    from {
+        transform: rotateY(-90deg);
+    }
+    to {
         transform: rotateY(0deg);
     }
+
 }
 
 
