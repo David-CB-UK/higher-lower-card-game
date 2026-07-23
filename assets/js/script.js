@@ -115,8 +115,8 @@ async function drawCard() {
         console.log("Card drawn:", currentCard);
         console.log("Cards remaining:", data.remaining);
 
-        // Update number of cards remaining in the current deck
-        cardsRemaining.textContent = `Cards Remaining: ${data.remaining}`;
+        // Reset the number of cards remaining after reshuffling the deck
+        cardsRemaining.textContent = data.remaining;
         // Check whether the current deck has run out of cards
         if (data.remaining === 0) {
             setOutOfCardsState();
@@ -191,6 +191,12 @@ async function makeGuess(playerGuess) {
 
     // Convert the JSON response into a JavaScript object
     const data = await response.json();
+
+    // Update the number of cards remaining in the current deck
+    cardsRemaining.textContent = data.remaining;
+        if (data.remaining === 0) {
+        setOutOfCardsState();
+    }
 
     // Store the first card from the returned cards array as the next face-up card
     nextCard = data.cards[0];
@@ -317,9 +323,11 @@ function updateGameState(result) {
     currentCardImage.src = currentCard.image;
     currentCardImage.alt = `${currentCard.value} of ${currentCard.suit}`;
 
-    // Reset the next card area to display the card back
-    nextCardImage.src = "assets/images/hi-low-card-reverse.webp";
-    nextCardImage.alt = "Reverse of Card";
+    // Reset the Next Card area unless the deck has been exhausted
+    if (drawCardButton.textContent !== "Out of Cards") {
+        nextCardImage.src = "assets/images/hi-low-card-reverse.webp";
+        nextCardImage.alt = "Reverse of Card";
+    }
 
 }
 
@@ -354,6 +362,10 @@ function setOutOfCardsState() {
 
     // Update the button text to reflect the current game state
     drawCardButton.textContent = "Out of Cards";
+
+    // Display the Out of Cards card in the Next Card area
+    nextCardImage.src = "assets/images/out-of-cards-card.webp";
+    nextCardImage.alt = "Out of Cards";
 }
 
 
@@ -388,6 +400,12 @@ async function reshuffleDeck() {
         currentCard = null;
         nextCard = null;
 
+         // Reset the current score for the new game
+        currentScore = 0;
+
+        // Update the score display
+        updateScoreDisplay();
+
         // Use the stored deckId to reshuffle the existing virtual deck
         const response = await fetch(
             `https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`
@@ -404,7 +422,7 @@ async function reshuffleDeck() {
         reshuffleDeckButton.textContent = "Reshuffle Deck";
 
         // Update the number of cards remaining after reshuffling the deck
-        cardsRemainingDisplay.textContent = remaining;
+        cardsRemaining.textContent = data.remaining;
         
         // Clear 'out of cards' message
         errorMessage.textContent = "";

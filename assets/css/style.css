@@ -1,0 +1,139 @@
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bungee&display=swap');
+
+
+/* --- Design System --- */
+
+:root {
+
+    /* Colours */
+    --table-green: #1f5d35;
+    --table-green-dark: #18492a;
+    --gold: #f6cb3e;
+    --off-white: #f8f8f8;
+
+    --success: #2e8b57;
+    --warning: #d8a600;
+    --danger: #c0392b;
+
+    /* Shadows */
+    --card-shadow: rgba(0, 0, 0, 0.35);
+
+    /* Typography */
+    --heading-font: "Audiowide", sans-serif;
+    --score-font: "Bungee", sans-serif;
+    --body-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    /* Layout */
+    --border-radius: 10px;
+}
+
+
+/* --- Global Styles --- */
+
+body {
+    font-family: var(--body-font);
+    background-color: var(--table-green);
+    color: var(--off-white);
+    min-height: 100vh;
+}
+
+
+/* --- Typography --- */
+
+
+h1 {
+    font-family: var(--heading-font);
+    color: var(--gold);
+}
+
+h2 {
+    color: var(--gold);
+    font-size: 1rem;
+    font-family: var(--body-font);
+}
+
+#cards-remaining, #current-score, #best-score {
+    font-family: var(--score-font);
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
+/* --- Header & Navigation --- */
+
+.navbar {
+    background-color: var(--table-green-dark);
+}
+
+.navbar-brand {
+    font-family: var(--heading-font);
+    color: var(--gold);
+}
+
+.nav-link {
+    color: var(--off-white);
+}
+
+.nav-link:hover {
+    color: var(--gold);
+}
+
+/* Navbar */
+
+
+/* --- Main Content --- */
+
+
+/* --- Scoreboard --- */
+
+.row.text-center {
+    margin-top: 2rem;
+}
+
+/* --- Playing Cards --- */
+
+
+.playing-card {
+    width: 100%;
+    max-width: 220px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 6px 16px var(--card-shadow);
+}
+
+/* --- Buttons --- */
+
+.btn {
+    border-radius: var(--border-radius);
+}
+
+/* --- Game Messages --- */
+
+#game-message {
+    min-height: 2rem;
+    font-weight: 600;
+}
+
+/* --- Accordion --- */
+
+
+/* --- Footer --- */
+
+footer {
+    background-color: var(--table-green-dark);
+}
+
+/* --- Animations --- */
+
+
+
+
+
+/* --- Media Queries --- */
+
+/* Large devices (desktops, less than 1200px) */
+
+
+/* Medium devices (tablets, less than 992px) */
+
+
+/* Small devices (phones, less than 768px) */
