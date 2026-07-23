@@ -332,10 +332,8 @@ function updateGameState(result) {
  * Updates the score displayed to the player.
  */
 function updateScoreDisplay() {
-
-    currentScoreDisplay.textContent = `Score: ${currentScore}`;
-    bestScoreDisplay.textContent = `Best Score: ${bestScore}`;
-
+    currentScoreDisplay.textContent = currentScore;
+    bestScoreDisplay.textContent = bestScore;
 }
 
 
@@ -406,7 +404,7 @@ async function reshuffleDeck() {
         reshuffleDeckButton.textContent = "Reshuffle Deck";
 
         // Update the number of cards remaining after reshuffling the deck
-        cardsRemaining.textContent = `Cards Remaining: ${data.remaining}`;
+        cardsRemainingDisplay.textContent = remaining;
         
         // Clear 'out of cards' message
         errorMessage.textContent = "";
