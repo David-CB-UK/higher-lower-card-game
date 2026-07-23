@@ -22,7 +22,7 @@ const currentScoreDisplay = document.getElementById("current-score");
 const bestScoreDisplay = document.getElementById("best-score");
 
 // Get a reference to the element used to display error messages
-const errorMessage = document.getElementById("error-message");
+const gameMessage = document.getElementById("game-message");
 
 // ========================================
 // Game State Variables
@@ -112,8 +112,10 @@ async function drawCard() {
         currentCard = data.cards[0];
 
         // Display the individual card data and remaining card count for API testing
-        console.log("Card drawn:", currentCard);
-        console.log("Cards remaining:", data.remaining);
+        await flipCard(currentCardImage);
+
+        currentCardImage.src = currentCard.image;
+        currentCardImage.alt = `${currentCard.value} of ${currentCard.suit}`;
 
         // Reset the number of cards remaining after reshuffling the deck
         cardsRemaining.textContent = data.remaining;
@@ -135,7 +137,7 @@ async function drawCard() {
         drawCardButton.textContent = "Game Started";
 
         // Clear any previous error message because the card was drawn successfully.
-        errorMessage.textContent = "";
+        gameMessage.textContent = "";
 
         // Re-enable the Draw Card button if there are still cards remaining
         //if (data.remaining > 0) {
@@ -161,7 +163,7 @@ async function drawCard() {
         console.error(error);
 
         // Display a user-friendly error message on the page
-        errorMessage.textContent = "⚠️ Unable to draw a card. Please check your connection and try again.";
+        gameMessage.textContent = "⚠️ Unable to draw a card. Please check your connection and try again.";
     
         // Re-enable the Draw Card button so the player can use button to try again after an error.
         drawCardButton.disabled = false;
@@ -169,6 +171,29 @@ async function drawCard() {
         drawCardButton.textContent = "Draw Card";
     }
 }
+
+// ========================================
+// Delay Function
+// ========================================
+
+/**
+ * Pauses execution for the specified number of milliseconds.
+ */
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+ // Plays the flip animation on a card image.
+async function flipCard(cardElement) {
+
+    cardElement.classList.add("card-flip");
+
+    await delay(600);
+
+    cardElement.classList.remove("card-flip");
+}
+
+
 
 
 // ========================================
@@ -213,7 +238,15 @@ async function makeGuess(playerGuess) {
 
     // Display the returned result for testing
     console.log("Returned result:", result);
-    
+
+    // Prevent additional guesses (hi/low button presses) while the turn is being processed
+    higherButton.disabled = true;
+    lowerButton.disabled = true;
+
+    // Allow the player time to view the revealed card
+    await delay(1800);
+
+    // Update the game
     updateGameState(result);
 }
 
@@ -329,6 +362,10 @@ function updateGameState(result) {
         nextCardImage.alt = "Reverse of Card";
     }
 
+    // Allow the player to make the next guess
+    higherButton.disabled = false;
+    lowerButton.disabled = false;
+
 }
 
 
@@ -354,7 +391,7 @@ function updateScoreDisplay() {
 function setOutOfCardsState() {
 
     // Inform the player that the deck has been exhausted
-    errorMessage.textContent =
+    gameMessage.textContent =
         "🃏 You've reached the end of the deck. Please reshuffle the deck to continue.";
 
     // Prevent any further cards being drawn
@@ -372,6 +409,13 @@ function setOutOfCardsState() {
 // ========================================
 // Reshuffle Deck Function
 // ========================================
+
+console.log({
+    drawCardButton,
+    reshuffleDeckButton,
+    cardsRemaining,
+    gameMessage
+});
 
 /**
  * Reshuffles the existing deck using its stored deck ID.
@@ -425,13 +469,17 @@ async function reshuffleDeck() {
         cardsRemaining.textContent = data.remaining;
         
         // Clear 'out of cards' message
-        errorMessage.textContent = "";
+        gameMessage.textContent = "";
 
         // Re-enable the Draw Card button
         drawCardButton.disabled = false;
 
         // Restore Draw Card button text
         drawCardButton.textContent = "Draw Card";
+
+        // Disable Higher & Lower until a new first card is drawn
+        higherButton.disabled = true;
+        lowerButton.disabled = true;
     }
 
     catch (error) {
@@ -439,7 +487,7 @@ async function reshuffleDeck() {
         console.error(error);
 
         // Display a user-friendly error message on the page
-        errorMessage.textContent = "⚠️ Unable to reshuffle the deck. Please check your connection and try again.";
+        gameMessage.textContent = "⚠️ Unable to reshuffle the deck. Please check your connection and try again.";
         
         // Re-enable the reshuffle button so the player can try again after an error.
         reshuffleDeckButton.disabled = false;
