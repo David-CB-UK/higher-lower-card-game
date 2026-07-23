@@ -35,8 +35,49 @@
             <h2 class="h6">Best Score:</h2>
             <p id="best-score">0</p>
         </div>
+    </div>
 
-</div>
+
+    <div class="row justify-content-center text-center mb-4">
+
+        <div class="col-6 col-md-4">
+
+             <!-- Current card displayed to the player -->
+            <h2 class="h6">Current Card</h2>
+            
+            <div id="current-card-container">
+                <img id="current-card-image" src="assets/images/hi-low-card-reverse.webp" alt="Current playing card" class="playing-card">
+            </div>
+        </div>
+
+        <div class="col-6 col-md-4">
+
+            <!-- Next card to be revealed after the player's guess -->
+            <h2 class="h6">Next Card</h2>
+
+            <div id="next-card-container">
+                <img id="next-card-image" src="assets/images/hi-low-card-reverse.webp" alt="Next playing card" class="playing-card">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Higher and Lower controls used to make the player's prediction -->
+    <div class="row justify-content-center mb-2">
+        <div class="col-8 col-sm-6 col-md-3 d-grid">
+            <button class="btn btn-primary py-2" id="higher-button" disabled>Higher</button>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-3">
+        <div class="col-8 col-sm-6 col-md-3 d-grid">
+            <button class="btn btn-primary py-2" id="lower-button" disabled>Lower</button>
+        </div>
+    </div>
+
+
+
+
 
     <!-- Button used to draw a card from the deck -->
     <button id="draw-card">Draw Card</button>
@@ -46,26 +87,6 @@
 
     <!-- Displays a messages if an API request or network connection fails -->
     <p id="error-message"></p>
-
-    <!-- The card returned by the API will be displayed here 
-    <div id="card-container"></div>-->
-
-    <!-- Current card displayed to the player -->
-    <div id="current-card-container">
-        <img id="current-card-image" src="assets/images/hi-low-card-reverse.webp" alt="Reverse of Card"  class="playing-card">
-    </div>
-
-    <!-- Next card to be revealed after the player's guess -->
-    <div id="next-card-container">
-        <img id="next-card-image" src="assets/images/hi-low-card-reverse.webp" alt="Reverse of Card" class="playing-card">
-    </div>
-
-    <!-- Higher and Lower controls used to make the player's prediction -->
-    <div class="guess-buttons">
-        <button id="higher-button" disabled>Higher</button>
-        <button id="lower-button" disabled>Lower</button>
-    </div>
-
 
     <!-- Bootstrap JavaScript Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
