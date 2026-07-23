@@ -122,10 +122,10 @@ footer {
     background-color: var(--table-green-dark);
 }
 
+
 /* --- Animations --- */
 
 /* --- Card Flip Animations --- */
-
 .playing-card {
     backface-visibility: hidden;
     transform-style: preserve-3d;
@@ -140,6 +140,7 @@ footer {
 }
 
 @keyframes flipOut {
+
     from {
         transform: rotateY(0deg);
     }
@@ -159,6 +160,45 @@ footer {
 
 }
 
+/* --- Card Slide Animation --- */
+
+#next-card-container {
+    transition: transform 0.6s ease-in-out;
+}
+
+.card-slide-left {
+    transform: translateX(-109%);
+}
+
+#next-card-container {
+    position: relative;
+}
+
+#flying-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: none;
+
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* --- Card Move Animation --- */
+
+.flying-card {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1000;
+
+    border-radius: var(--border-radius);
+    box-shadow: 0 6px 16px var(--card-shadow);
+
+    transition:
+        left 0.6s ease-in-out,
+        top 0.6s ease-in-out;
+}
 
 
 /* --- Media Queries --- */

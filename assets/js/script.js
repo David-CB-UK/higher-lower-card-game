@@ -45,7 +45,6 @@ let currentScore = 0;
 let bestScore = 0;
 
 
-
 /**
  * Creates and shuffles a new deck using the Deck of Cards API.
  * The returned deck ID is stored so the same deck can be used
@@ -72,7 +71,6 @@ async function getDeck() {
 // ========================================
 // Draw Card Function
 // ========================================
-
 
 /**
  * Draws one card from the current deck using its unique deck ID.
@@ -173,6 +171,7 @@ async function drawCard() {
     }
 }
 
+
 // ========================================
 // Delay Function
 // ========================================
@@ -209,6 +208,9 @@ async function flipCard(cardElement, imageSrc, imageAlt) {
 }
 
 
+
+
+
 // ========================================
 // Higher / Lower Guess Function
 // ========================================
@@ -239,28 +241,78 @@ async function makeGuess(playerGuess) {
     // Store the first card from the returned cards array as the next face-up card
     nextCard = data.cards[0];
 
-    // Display the next card
-    nextCardImage.src = nextCard.image;
-    nextCardImage.alt = `${nextCard.value} of ${nextCard.suit}`;
+    // Flip the Next Card over to reveal it
+    await flipCard(
+        nextCardImage,
+        nextCard.image,
+        `${nextCard.value} of ${nextCard.suit}`
+    );
 
-    // Display the returned data in the browser console for testing
-    console.log(data);
+    /**
+     * Slides the Next Card container towards the Current Card.
+     */
+    async function slideCardAcross() {
 
-    // Compare the current and next cards
-    const result = compareCards(playerGuess);
+    const flyingCard = document.getElementById("flying-card");
+    const currentCard = document.getElementById("current-card-image");
+    const nextCard = document.getElementById("next-card-image");
 
-    // Display the returned result for testing
-    console.log("Returned result:", result);
+    // Copy the revealed card
+    flyingCard.src = nextCard.src;
+    flyingCard.alt = nextCard.alt;
+    flyingCard.style.display = "block";
 
-    // Prevent additional guesses (hi/low button presses) while the turn is being processed
-    higherButton.disabled = true;
-    lowerButton.disabled = true;
+    // Immediately reveal what is underneath
+    if (drawCardButton.textContent === "Out of Cards") {
 
-    // Allow the player time to view the revealed card
-    await delay(1800);
+        nextCard.src = "assets/images/out-of-cards-card.webp";
+        nextCard.alt = "Out of Cards";
 
-    // Update the game
-    updateGameState(result);
+    } else {
+
+        nextCard.src = "assets/images/hi-low-card-reverse.webp";
+        nextCard.alt = "Reverse of Card";
+
+    }
+
+    // Work out how far to travel
+    const start = flyingCard.getBoundingClientRect();
+    const end = currentCard.getBoundingClientRect();
+
+    const x = end.left - start.left;
+    const y = end.top - start.top;
+
+    flyingCard.style.transition = "transform 0.6s ease-in-out";
+    flyingCard.style.transform = `translate(${x}px, ${y}px)`;
+
+    await delay(600);
+
+    // Reset
+    flyingCard.style.display = "none";
+    flyingCard.style.transform = "";
+}
+
+// Display the returned data in the browser console for testing
+console.log(data);
+
+// Compare the current and next cards
+const result = compareCards(playerGuess);
+
+// Display the returned result for testing
+console.log("Returned result:", result);
+
+// Prevent additional guesses (hi/low button presses) while the turn is being processed
+higherButton.disabled = true;
+lowerButton.disabled = true;
+
+// Allow the player time to view the revealed card
+await delay(1200);
+
+// Slide the revealed card towards the Current Card
+await slideCardAcross();
+
+// Update the game
+updateGameState(result);
 }
 
 
@@ -369,12 +421,6 @@ function updateGameState(result) {
     currentCardImage.src = currentCard.image;
     currentCardImage.alt = `${currentCard.value} of ${currentCard.suit}`;
 
-    // Reset the Next Card area unless the deck has been exhausted
-    if (drawCardButton.textContent !== "Out of Cards") {
-        nextCardImage.src = "assets/images/hi-low-card-reverse.webp";
-        nextCardImage.alt = "Reverse of Card";
-    }
-
     // Allow the player to make the next guess
     higherButton.disabled = false;
     lowerButton.disabled = false;
@@ -413,9 +459,6 @@ function setOutOfCardsState() {
     // Update the button text to reflect the current game state
     drawCardButton.textContent = "Out of Cards";
 
-    // Display the Out of Cards card in the Next Card area
-    nextCardImage.src = "assets/images/out-of-cards-card.webp";
-    nextCardImage.alt = "Out of Cards";
 }
 
 
