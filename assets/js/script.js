@@ -188,10 +188,6 @@ async function drawCard() {
 
         // Reset the number of cards remaining after reshuffling the deck
         cardsRemaining.textContent = data.remaining;
-        // Check whether the current deck has run out of cards
-        if (data.remaining === 0) {
-            setOutOfCardsState();
-        }
 
         // Display the card returned by the API
         currentCardImage.src = currentCard.image;
@@ -304,9 +300,6 @@ async function makeGuess(playerGuess) {
 
     // Update the number of cards remaining in the current deck
     cardsRemaining.textContent = data.remaining;
-        if (data.remaining === 0) {
-        setOutOfCardsState();
-    }
 
     // Store the first card from the returned cards array as the next face-up card
     nextCard = data.cards[0];
@@ -394,8 +387,7 @@ updateGameState(result);
 
 // Leave the feedback visible briefly
 await delay(500);
-
-if (result !== "equal" && cardsRemaining.textContent !== "0") {
+    if (result !== "equal" && Number(cardsRemaining.textContent) > 0) {
         gameMessage.textContent = "";
     }
 }
@@ -506,7 +498,7 @@ function updateGameState(result) {
             } else if (result === "equal") {
                 // Equal cards do not affect the score - & If there are no cards left it does nothing, so the existing Game Over message stays visible and 
                 // not overwritten by the tie message if there are 2 equal last cards at the end of the deck!
-                if (cardsRemaining.textContent !== "0") {
+                if (Number(cardsRemaining.textContent) > 0) {
                     gameMessage.textContent = "🤝 It's a tie! Equal cards don't count. Guess again!";
                     }
         }
@@ -521,9 +513,13 @@ function updateGameState(result) {
     currentCardImage.src = currentCard.image;
     currentCardImage.alt = `${currentCard.value} of ${currentCard.suit}`;
 
-    // Allow the player to make the next guess
-    higherButton.disabled = false;
-    lowerButton.disabled = false;
+    // Only allow another guess if there are still cards remaining
+    if (cardsRemaining.textContent !== "0") {
+        higherButton.disabled = false;
+        lowerButton.disabled = false;
+    } else {
+        setOutOfCardsState();
+    }
 
 }
 
@@ -549,6 +545,9 @@ function updateScoreDisplay() {
 
 //Updates the game when all cards have been drawn.
 function setOutOfCardsState() {
+
+    //temp for dignosis
+    console.log("GAME OVER CALLED");
 
 // Get the message for the player's final score
 const endMessage = endGameMessages[gameBestScore] || "Thanks for playing!";

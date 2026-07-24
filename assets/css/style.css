@@ -364,12 +364,40 @@ footer {
 }
 
 
-/* --- Media Queries --- */
+/* --- About Section --- */
 
-/* Large devices (desktops, less than 1200px) */
+#about {
+    color: #ffffff;
+}
 
+#about h2 {
+    color: #d3b161;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+}
 
-/* Medium devices (tablets, less than 992px) */
+#about h3 {
+    color: #d3b161;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
 
+#about p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
 
-/* Small devices (phones, less than 768px) */
+#about a {
+    color: #d3b161;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+#about a:hover {
+    text-decoration: underline;
+}
