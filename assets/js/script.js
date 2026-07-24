@@ -3,7 +3,7 @@
 // ========================================
 
 // Get references to the HTML / DOM elements that JavaScript will interact with
-const drawCardButton = document.getElementById("draw-card");
+const drawCardButton = document.getElementById("draw-card-btn");
 const reshuffleDeckButton = document.getElementById("reshuffle-deck");
 
 // Get references to the card images
@@ -11,8 +11,8 @@ const currentCardImage = document.getElementById("current-card-image");
 const nextCardImage = document.getElementById("next-card-image");
 
 // Get references to the Higher / Lower buttons
-const higherButton = document.getElementById("higher-button");
-const lowerButton = document.getElementById("lower-button");
+const higherButton = document.getElementById("higher-btn");
+const lowerButton = document.getElementById("lower-btn");
 
 // Get reference to display the number of cards remaining
 const cardsRemaining = document.getElementById("cards-remaining");

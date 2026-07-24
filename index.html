@@ -65,7 +65,7 @@
             </div>
 
             <div class="col">
-                <h2 class="h6">Best This Game:</h2>
+                <h2 class="h6">Best Streak:</h2>
                 <p id="game-best-score">0</p>
             </div>
 
@@ -80,13 +80,13 @@
         <div class="row justify-content-center mb-4">
 
             <div class="col-auto">
-                <button id="draw-card" class="btn btn-secondary">
+                <button id="draw-card-btn" class="btn game-button">
                     Draw Card
                 </button>
             </div>
 
             <div class="col-auto">
-                <button id="reshuffle-deck" class="btn btn-secondary">
+                <button id="reshuffle-deck" class="btn game-button">
                     Reshuffle Deck
                 </button>
             </div>
@@ -139,13 +139,13 @@
         <!-- Higher and Lower controls used to make the player's prediction -->
         <div class="row justify-content-center mb-2">
             <div class="col-8 col-sm-6 col-md-3 d-grid">
-                <button class="btn btn-primary py-2" id="higher-button" disabled>Higher</button>
+                <button id="higher-btn" class="btn game-button py-2" disabled>Higher</button>
             </div>
         </div>
 
-        <div class="row justify-content-center mb-3">
+        <div class="row justify-content-center mb-2">
             <div class="col-8 col-sm-6 col-md-3 d-grid">
-                <button class="btn btn-primary py-2" id="lower-button" disabled>Lower</button>
+                <button id="lower-btn" class="btn game-button py-2" disabled>Lower</button>
             </div>
         </div>
 
@@ -182,7 +182,7 @@
 </body>
 
 <!-- Footer -->
-<footer class="bg-body-tertiary py-3 mt-5">
+<footer class="py-3 mt-5">
 
     <div class="container text-center">
 

@@ -16,6 +16,20 @@
     --warning: #d8a600;
     --danger: #c0392b;
 
+    /* --- Button Colours --- */
+
+    --gold: #D4AF37;
+    --gold-light: #F5D76E;
+    --gold-dark: #8B6A17;
+
+    --navy: #305C91;
+    --navy-light: #2D4F7A;
+
+    --burgundy: #6B1F2A;
+    --burgundy-light: #8A2A38;
+
+    --button-text: #F8F4E3;
+
     /* Shadows */
     --card-shadow: rgba(0, 0, 0, 0.35);
 
@@ -36,8 +50,14 @@ body {
     background-color: var(--table-green);
     color: var(--off-white);
     min-height: 100vh;
+    /* to fix floating footer on some screens */
+    display: flex;
+    flex-direction: column;
 }
 
+main {
+    flex: 1;
+}
 
 /* --- Typography --- */
 
@@ -53,7 +73,7 @@ h2 {
     font-family: var(--body-font);
 }
 
-#cards-remaining, #current-score, #best-score {
+#cards-remaining, #current-score, #best-score, #game-best-score {
     font-family: var(--score-font);
     font-size: 2rem;
     margin-bottom: 0;
@@ -78,7 +98,17 @@ h2 {
     color: var(--gold);
 }
 
-/* Navbar */
+.navbar-toggler {
+    border-color: var(--gold);
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(246,203,62,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
 
 
 /* --- Main Content --- */
@@ -90,8 +120,8 @@ h2 {
     margin-top: 2rem;
 }
 
-/* --- Playing Cards --- */
 
+/* --- Playing Cards --- */
 
 .playing-card {
     width: 100%;
@@ -106,10 +136,101 @@ h2 {
     border-radius: var(--border-radius);
 }
 
+#draw-card-btn {
+    background: linear-gradient(
+        to bottom,
+        var(--gold-light),
+        var(--gold),
+        var(--gold-dark)
+    );
+
+    color: var(--button-text);
+}
+
+#reshuffle-deck.game-button {
+    background: linear-gradient(
+        to bottom,
+        #f8f8f8 0%,
+        #dcdcdc 45%,
+        #b5b5b5 100%
+    );
+
+    color: #2b2b2b;
+    border: 2px solid #8e8e8e;
+
+    text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+
+    box-shadow:
+        inset 0 2px 1px rgba(255,255,255,0.8),
+        inset 0 -2px 2px rgba(0,0,0,0.15),
+        0 4px 6px rgba(0,0,0,0.35);
+}
+
+#reshuffle-deck.game-button:hover {
+    background: linear-gradient(
+        to bottom,
+        #ffffff 0%,
+        #ececec 45%,
+        #c9c9c9 100%
+    );
+}
+
+/* --- Game Buttons --- */
+
+.game-button {
+    font-family: inherit;
+    font-size: 1.15rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    color: var(--button-text);
+
+    border: 2px solid var(--gold-dark);
+    border-radius: 10px;
+
+    min-height: 50px;
+    font-size: 1.1rem;
+
+    cursor: pointer;
+
+    box-shadow:
+        inset 0 2px 1px rgba(255,255,255,0.25),
+        0 4px 6px rgba(0,0,0,0.35);
+
+    transition: all 0.15s ease;
+}
+
+.game-button:hover {
+    transform: translateY(-1px);
+}
+
+.game-button:active {
+    transform: translateY(2px);
+
+    box-shadow:
+        inset 0 2px 6px rgba(0,0,0,0.35);
+}
+
+#higher-btn.game-button {
+    background: linear-gradient(
+        to bottom,
+        var(--navy-light),
+        var(--navy)
+    );
+}
+
+#lower-btn.game-button {
+    background: linear-gradient(
+        to bottom,
+        var(--burgundy-light),
+        var(--burgundy)
+    );
+}
+
 /* --- Game Messages --- */
 
 #game-message {
-    min-height: 2rem;
+    min-height: 1rem;
     font-weight: 600;
 }
 
