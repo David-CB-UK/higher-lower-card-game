@@ -10,6 +10,9 @@ const reshuffleDeckButton = document.getElementById("reshuffle-deck");
 const currentCardImage = document.getElementById("current-card-image");
 const nextCardImage = document.getElementById("next-card-image");
 
+// Disable reshuffle until the first game has started
+reshuffleDeckButton.disabled = true;
+
 // Get references to the Higher / Lower buttons
 const higherButton = document.getElementById("higher-btn");
 const lowerButton = document.getElementById("lower-btn");
@@ -132,8 +135,6 @@ const endGameMessages = {
     51: "😱 One card away from perfection...",
     52: "👑 You achieved the impossible! A flawless run. Take a screenshot—you've earned bragging rights!"
 };
-
-
 
 
 
@@ -617,15 +618,15 @@ async function reshuffleDeck() {
         // Display the returned reshuffle data in the console for API testing
         console.log(data);
 
-        // Restore the reshuffle button once the deck has been reshuffled
-        reshuffleDeckButton.disabled = false;
+        // Disable reshuffle until a new game starts
+        reshuffleDeckButton.disabled = true;
         reshuffleDeckButton.textContent = "Reshuffle Deck";
 
         // Update the number of cards remaining after reshuffling the deck
         cardsRemaining.textContent = data.remaining;
         
-        // Clear 'out of cards' message
-        gameMessage.textContent = "";
+        gameMessage.textContent =
+        "🔀 Deck reshuffled successfully. Draw a card to begin!";
 
         // Re-enable the Draw Card button
         drawCardButton.disabled = false;
