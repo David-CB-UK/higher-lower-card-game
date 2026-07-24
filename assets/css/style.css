@@ -113,7 +113,6 @@ h2 {
 
 /* --- Main Content --- */
 
-
 /* --- Scoreboard --- */
 
 .row.text-center {
@@ -319,6 +318,49 @@ footer {
     transition:
         left 0.6s ease-in-out,
         top 0.6s ease-in-out;
+}
+
+/* --- Game Instructions --- */
+
+#how-to-play .accordion-item {
+    background-color: #215732;
+    border: 2px solid #c9a227;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#how-to-play .accordion-button {
+    background-color: #215732;
+    color: #c9a227;
+    font-weight: 700;
+}
+
+#how-to-play .accordion-button:not(.collapsed) {
+    background-color: #2c6b3f;
+    color: #ffd84d;
+    box-shadow: none;
+}
+
+#how-to-play .accordion-button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(201, 162, 39, 0.4);
+}
+
+#how-to-play .accordion-button::after {
+    filter: brightness(0) saturate(100%) invert(77%) sepia(42%) saturate(525%) hue-rotate(7deg) brightness(100%) contrast(92%);
+}
+
+#how-to-play .accordion-body {
+    background-color: #1b4b2a;
+    color: #ffffff;
+}
+
+#how-to-play ul {
+    margin-bottom: 0;
+    padding-left: 1.5rem;
+}
+
+#how-to-play li {
+    margin-bottom: 0.5rem;
 }
 
 

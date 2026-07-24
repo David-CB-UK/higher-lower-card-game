@@ -662,6 +662,25 @@ async function reshuffleDeck() {
     }
 }
 
+// ========================================
+// Nav-Bar & Rules accordion
+// ========================================
+
+
+// Automatically open the Rules accordion when the navbar link is clicked
+document.getElementById("rules-link").addEventListener("click", () => {
+
+    const instructions = document.getElementById("instructions");
+
+    const accordion = new bootstrap.Collapse(instructions, {
+        toggle: false
+    });
+
+    accordion.show();
+
+});
+
+
 
 // ========================================
 // Event Listeners
