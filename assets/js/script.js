@@ -326,7 +326,7 @@ async function makeGuess(playerGuess) {
     flyingCard.style.display = "block";
 
     // Immediately reveal what is underneath
-    if (drawCardButton.textContent === "Out of Cards") {
+    if (Number(cardsRemaining.textContent) === 0) {
 
         nextCard.src = "assets/images/out-of-cards-card.webp";
         nextCard.alt = "Out of Cards";
