@@ -19,6 +19,7 @@ const cardsRemaining = document.getElementById("cards-remaining");
 
 // Get references to the score displays
 const currentScoreDisplay = document.getElementById("current-score");
+const gameBestScoreDisplay = document.getElementById("game-best-score");
 const bestScoreDisplay = document.getElementById("best-score");
 
 // Get a reference to the element used to display error messages
@@ -41,7 +42,10 @@ let nextCard;
 // Store player's current score
 let currentScore = 0;
 
-// Store player's best score
+// Store player's best streak during the current game
+let gameBestScore = 0;
+
+// All players best score to date (or until page refresh)
 let bestScore = 0;
 
 
@@ -66,6 +70,71 @@ async function getDeck() {
     // Display the returned deck data in the console for API testing
     console.log(data);
 }
+
+
+
+// ========================================
+// End Game Messages
+// ========================================
+
+const endGameMessages = {
+    0: "💀 I didn't know a result could be this bad... Did you even look at the cards?",
+    1: "🃏 Everyone starts somewhere. At least you're on the scoreboard!",
+    2: "✌️ Double trouble... or double progress!",
+    3: "🍀 Third time's the charm... eventually!",
+    4: "🍀 Four-leaf clovers are rare. This score... less so.",
+    5: "✋ High five! A start's a start.",
+    6: "🎲 Rolling a six is lucky. Keep that luck going!",
+    7: "🎩 007 would be proud. Licence to guess.",
+    8: "🎱 The Magic 8-Ball approves your choices.",
+    9: "🌀 9th Chevron locked. Destination set!",
+    10: "👟 Allons-y! Into double figures!",
+    11: "⚡ \"It's not every day someone scores eleven!\" Hagrid definitely called this one.",
+    12: "🥚 A full dozen! You're warming up now.",
+    13: "🍀 Lucky for some... today it was you!",
+    14: "🚀 You're gaining momentum now!",
+    15: "🏅 Achievement unlocked: Finding Your Feet.",
+    16: "🎉 Sweet sixteen! Your guessing game is growing up.",
+    17: "📈 Your odds are looking better by the card.",
+    18: "🎯 You're definitely getting the hang of this.",
+    19: "😎 Nearly twenty... confidence suits you.",
+    20: "⭐ Achievement unlocked: On a Roll.",
+    21: "♠️ Blackjack would have loved that score!",
+    22: "🦆 22... quack quack! No ducks were harmed in achieving this score.",
+    23: "🃏 You're stacking the deck in your favour!",
+    24: "⏰ 24 hours in a day... and you've made every second count.",
+    25: "🏆 Half the deck conquered!",
+    26: "🏹 May the odds be ever in your favour.",
+    27: "🎉 Now we're talking!",
+    28: "📈 Your winning streak has its own momentum now.",
+    29: "🔥 You're making this look easy.",
+    30: "🎩 You're becoming a Higher or Lower expert.",
+    31: "🖖 Section 31 has classified your score as above average. Officially, no such record exists.",
+    32: "💪 You're well into expert territory now.",
+    33: "⬆️ Level up! You're becoming a Higher or Lower master.",
+    34: "🧹 You've got the reflexes of a Seeker.",
+    35: "🦈 Achievement unlocked: Card Shark.",
+    36: "🎲 Lady Luck clearly knows your name.",
+    37: "🚀 This run is getting seriously impressive.",
+    38: "🏅 You're playing like a seasoned pro.",
+    39: "🌟 So close to forty... keep going!",
+    40: "🎉 Life begins at 40... and so do legendary scores.",
+    41: "🎖️ You didn't come this far to stop now!",
+    42: "🌌 42... apparently the answer to life, the universe and everything.",
+    43: "🎲 Fortune favours the bold... and apparently you.",
+    44: "🃏 The cards are definitely on your side now.",
+    45: "💎 You must have nerves of steel!",
+    46: "⚡ Almost unstoppable!",
+    47: "👏 You're in elite company now.",
+    48: "🎖️ That's a score worth bragging about.",
+    49: "🎯 So close you can almost taste perfection.",
+    50: "🏅 Half century! That's championship form.",
+    51: "😱 One card away from perfection...",
+    52: "👑 You achieved the impossible! A flawless run. Take a screenshot—you've earned bragging rights!"
+};
+
+
+
 
 
 // ========================================
@@ -190,7 +259,7 @@ async function flipCard(cardElement, imageSrc, imageAlt) {
 
     // Flip the card away from the player
     cardElement.classList.add("card-flip-out");
-    await delay(300);
+    await delay(220);
 
     // Remove the first animation
     cardElement.classList.remove("card-flip-out");
@@ -201,7 +270,7 @@ async function flipCard(cardElement, imageSrc, imageAlt) {
 
     // Flip the new card back towards the player
     cardElement.classList.add("card-flip-in");
-    await delay(300);
+    await delay(220);
 
     // Clean up
     cardElement.classList.remove("card-flip-in");
@@ -282,10 +351,10 @@ async function makeGuess(playerGuess) {
     const x = end.left - start.left;
     const y = end.top - start.top;
 
-    flyingCard.style.transition = "transform 0.6s ease-in-out";
+    flyingCard.style.transition = "transform 0.45s ease-in-out";
     flyingCard.style.transform = `translate(${x}px, ${y}px)`;
 
-    await delay(600);
+    await delay(450);
 
     // Reset
     flyingCard.style.display = "none";
@@ -306,7 +375,7 @@ higherButton.disabled = true;
 lowerButton.disabled = true;
 
 // Allow the player time to view the revealed card
-await delay(1200);
+await delay(700);
 
 // Slide the revealed card towards the Current Card
 await slideCardAcross();
@@ -401,15 +470,35 @@ function updateGameState(result) {
 
     console.log("Updating game state:", result);
 
-    // Increase or reset the player's score
-    if (result === "correct") {
-        currentScore++;
-        if (currentScore > bestScore) {
-            bestScore = currentScore;
+        // Increase or reset the player's score
+        if (result === "correct") {
+            currentScore++;
+
+            // Update the best streak for this game
+            if (currentScore > gameBestScore) {
+                gameBestScore = currentScore;
+            }
+
+            // Update the best score across all games
+            if (currentScore > bestScore) {
+                bestScore = currentScore;
+            }
+
+            // Clear any previous game message
+            gameMessage.textContent = "";
+
+            } else if (result === "incorrect") {
+                currentScore = 0;
+                // Clear any previous game message
+                gameMessage.textContent = "";
+
+            } else if (result === "equal") {
+                // Equal cards do not affect the score - & If there are no cards left it does nothing, so the existing Game Over message stays visible and 
+                // not overwritten by the tie message if there are 2 equal last cards at the end of the deck!
+                if (cardsRemaining.textContent !== "0") {
+                    gameMessage.textContent = "🤝 It's a tie! Equal cards don't count. Guess again!";
+                    }
         }
-    } else if (result === "incorrect") {
-        currentScore = 0;
-    }
 
     // Update the displayed scores
     updateScoreDisplay();
@@ -437,6 +526,7 @@ function updateGameState(result) {
  */
 function updateScoreDisplay() {
     currentScoreDisplay.textContent = currentScore;
+    gameBestScoreDisplay.textContent = gameBestScore;
     bestScoreDisplay.textContent = bestScore;
 }
 
@@ -449,9 +539,18 @@ function updateScoreDisplay() {
 //Updates the game when all cards have been drawn.
 function setOutOfCardsState() {
 
-    // Inform the player that the deck has been exhausted
-    gameMessage.textContent =
-        "🃏 You've reached the end of the deck. Please reshuffle the deck to continue.";
+// Get the message for the player's final score
+const endMessage = endGameMessages[gameBestScore] || "Thanks for playing!";
+
+// Display the end-of-game message
+gameMessage.innerHTML = `
+    <strong>🎉 Game Over!</strong>
+    <br><br>
+    <strong>🏆 Best Streak This Game: ${gameBestScore}</strong>
+    <br><br>
+    ${endMessage}<br>
+    <br> 
+    🃏 You've reached the end of the deck. <br> Please reshuffle the deck to continue.`;
 
     // Prevent any further cards being drawn
     drawCardButton.disabled = true;
@@ -502,6 +601,7 @@ async function reshuffleDeck() {
 
          // Reset the current score for the new game
         currentScore = 0;
+        gameBestScore = 0;
 
         // Update the score display
         updateScoreDisplay();
