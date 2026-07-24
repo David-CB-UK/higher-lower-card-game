@@ -368,6 +368,15 @@ console.log(data);
 // Compare the current and next cards
 const result = compareCards(playerGuess);
 
+if (result === "correct") {
+    gameMessage.textContent = "✅ Correct!";
+} else if (result === "incorrect") {
+    gameMessage.textContent = "❌ Incorrect!";
+} else {
+    gameMessage.textContent =
+        "🤝 It's a tie! Equal cards don't count. Guess again!";
+}
+
 // Display the returned result for testing
 console.log("Returned result:", result);
 
@@ -381,8 +390,14 @@ await delay(700);
 // Slide the revealed card towards the Current Card
 await slideCardAcross();
 
-// Update the game
 updateGameState(result);
+
+// Leave the feedback visible briefly
+await delay(500);
+
+if (result !== "equal" && cardsRemaining.textContent !== "0") {
+        gameMessage.textContent = "";
+    }
 }
 
 
@@ -485,13 +500,8 @@ function updateGameState(result) {
                 bestScore = currentScore;
             }
 
-            // Clear any previous game message
-            gameMessage.textContent = "";
-
             } else if (result === "incorrect") {
                 currentScore = 0;
-                // Clear any previous game message
-                gameMessage.textContent = "";
 
             } else if (result === "equal") {
                 // Equal cards do not affect the score - & If there are no cards left it does nothing, so the existing Game Over message stays visible and 
