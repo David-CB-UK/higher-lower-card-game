@@ -124,7 +124,7 @@ h2 {
 
 .playing-card {
     width: 100%;
-    max-width: 220px;
+    max-width: 226px;
     border-radius: var(--border-radius);
     box-shadow: 0 6px 16px var(--card-shadow);
 }
