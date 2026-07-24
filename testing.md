@@ -348,6 +348,32 @@ The console output matched the expected results, confirming that the comparison 
 ## Validator Testing
 
 <!-- TBC: Add final HTML, CSS and JavaScript validation or linting results. -->
+<!-- JSHint -->
+
+<!-- HTML -->
+
+<!-- CSS W3C -->
+#### CSS Validation
+
+The stylesheet was validated using the W3C CSS Validation Service.
+
+No CSS errors were found. The validator reported only informational warnings relating to imported stylesheets and CSS custom properties (variables), which are expected when using Bootstrap and modern CSS.
+
+<details>
+<summary><strong>View W3C CSS Validation Evidence (Click to expand)</strong></summary>
+
+![W3C CSS Validation](assets/images/readme-images/w3c-css.jpg)
+
+</details>
+<br>
+<p>
+    <a href="https://jigsaw.w3.org/css-validator/check/referer">
+        <img
+            style="border:0;width:88px;height:31px"
+            src="https://jigsaw.w3.org/css-validator/images/vcss"
+            alt="Valid CSS!">
+    </a>
+</p>
 
 [Back to top](#higher-or-lower---testing)
 
